@@ -1,6 +1,5 @@
 package com.redesocial.database;
 
-import java.util.Date;
 
 public class User {
 
