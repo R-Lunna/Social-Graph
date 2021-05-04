@@ -1,35 +1,57 @@
 package com.redesocial.database;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public class Graph<T>
+public class Graph
 {
-    private final List<Node<T>> nodes = new ArrayList<>();
+    private final List<Node> nodes = new LinkedList<>();
 
-    public Graph()
+    public void insert( User data )
     {
-
+        /* Insere um novo vértice ao grafo */
+        nodes.add( new Node( data ) );
     }
 
-    public void insert( T data )
+    /* Retorna um vértice se ele existir buscando pelo email */
+    public Node getNode( String email )
     {
+        for( Node node : nodes )
+            if ( node.getData().getEmail().equals( email ) )
+                return node;
 
-        nodes.add( new Node<T>( data ) );
+        return null;
+    }
+
+    /* Conecta dois gráfos por uma aresta */
+    public void linkVertex( Node nodeA, Node nodeB )
+    {
+        nodeA.insert( nodeB );
     }
 
 }
 
-class Node<T>
+class Node
 {
-    private T data;
-    private List<T> nodes = new ArrayList<>();
+    private User data;
+    private List<Node> nodes = new LinkedList<>();
 
-    public Node( T data )
+    public Node( User data )
     {
         this.data = data;
     }
 
-    
+    public void insert( Node data )
+    {
+        nodes.add( data );
+    }
+
+    public User getData()
+    {
+        return data;
+    }
+
+
+
 }
 
