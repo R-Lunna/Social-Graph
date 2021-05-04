@@ -5,45 +5,53 @@ import java.util.List;
 
 public class Graph
 {
-    private final List<Node> nodes = new LinkedList<>();
+    private final List<Vertex> vertices = new LinkedList<>();
 
     public void insert( User data )
     {
         /* Insere um novo vértice ao grafo */
-        nodes.add( new Node( data ) );
+        vertices.add( new Vertex( data ) );
     }
 
-    /* Retorna um vértice se ele existir buscando pelo email */
-    public Node getNode( String email )
+    /* Retorna um vértice, se ele existir, buscando pelo email do usuário */
+    public Vertex getNode( String email )
     {
-        for( Node node : nodes )
-            if ( node.getData().getEmail().equals( email ) )
-                return node;
+        for( Vertex vertex : vertices )
+            if ( vertex.getData().getEmail().equals( email ) )
+                return vertex;
 
+        /* O vértice não existe */
         return null;
     }
 
     /* Conecta dois gráfos por uma aresta */
-    public void linkVertex( Node nodeA, Node nodeB )
+    public void linkVertex(Vertex vertexA, Vertex vertexB)
     {
-        nodeA.insert( nodeB );
+        vertexA.insert(vertexB);
     }
+
+    /* Total de vértices no grafo */
+    public int length()
+    {
+        return vertices.size();
+    }
+
 
 }
 
-class Node
+class Vertex
 {
-    private User data;
-    private List<Node> nodes = new LinkedList<>();
+    private final User data;
+    private final List<Vertex> vertices = new LinkedList<>();
 
-    public Node( User data )
+    public Vertex(User data )
     {
         this.data = data;
     }
 
-    public void insert( Node data )
+    public void insert( Vertex data )
     {
-        nodes.add( data );
+        vertices.add( data );
     }
 
     public User getData()
