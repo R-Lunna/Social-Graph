@@ -14,7 +14,7 @@ public class Graph
     }
 
     /* Retorna um vértice, se ele existir, buscando pelo email do usuário */
-    public Vertex getNode( String email )
+    private Vertex getNode( String email )
     {
         for( Vertex vertex : vertices )
             if ( vertex.getData().getEmail().equals( email ) )
@@ -25,9 +25,18 @@ public class Graph
     }
 
     /* Conecta dois gráfos por uma aresta */
-    public void linkVertex(Vertex vertexA, Vertex vertexB)
+    public void linkVertex( String emailA, String emailB )
+    throws NullPointerException
     {
-        vertexA.insert(vertexB);
+        try
+        {
+            getNode( emailA).insert( getNode( emailB ) );
+        }
+        catch ( NullPointerException e )
+        {
+            throw new IllegalArgumentException( "Vertex not found" , e );
+        }
+
     }
 
     /* Total de vértices no grafo */
@@ -36,13 +45,14 @@ public class Graph
         return vertices.size();
     }
 
-
 }
 
 class Vertex
 {
     private final User data;
     private final List<Vertex> vertices = new LinkedList<>();
+    private int positionX;
+    private int PositionY;
 
     public Vertex(User data )
     {
@@ -50,7 +60,11 @@ class Vertex
     }
 
     public void insert( Vertex data )
+    throws NullPointerException
     {
+        if ( data == null )
+            throw new NullPointerException();
+
         vertices.add( data );
     }
 
@@ -58,8 +72,6 @@ class Vertex
     {
         return data;
     }
-
-
 
 }
 
