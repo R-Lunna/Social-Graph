@@ -8,8 +8,12 @@ public class Graph
     private final List<Vertex> vertices = new LinkedList<>();
 
     public void insert( User data )
+    throws NullPointerException
     {
-        /* Insere um novo vértice ao grafo */
+        if( data == null )
+            throw new NullPointerException("Invalid vertex");
+
+        /* Insere um novo vértice no grafo */
         vertices.add( new Vertex( data ) );
     }
 
@@ -39,7 +43,7 @@ public class Graph
 
     }
 
-    /* Total de vértices no grafo */
+    /* Retorna o total de vértices no grafo */
     public int length()
     {
         return vertices.size();
