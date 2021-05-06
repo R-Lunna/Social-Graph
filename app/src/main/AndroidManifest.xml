@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RedeSocial">
         <activity android:name=".register"></activity>
-        <activity android:name=".Login" />
+        <activity android:name=".activity.Login" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

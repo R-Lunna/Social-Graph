@@ -1,4 +1,4 @@
-package com.redesocial;
+package com.redesocial.activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +13,10 @@ import android.widget.RadioButton;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.redesocial.R;
 import com.redesocial.database.User;
 
-import java.util.Date;
-
-public class register extends AppCompatActivity {
+public class Register extends AppCompatActivity {
     private EditText name;
     private EditText email;
     private EditText password;
@@ -75,7 +74,7 @@ public class register extends AppCompatActivity {
 
     private AlertDialog showAlert() {
         // Instancia o objeto do tipo alertdialog passando a tela atual
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(register.this);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Register.this);
 
         // Instancia o objeto do tipo layoutInflater
         LayoutInflater layoutInflater = getLayoutInflater();
