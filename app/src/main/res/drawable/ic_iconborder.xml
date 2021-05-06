@@ -1,0 +1,23 @@
+<vector android:height="300dp" android:viewportHeight="254"
+    android:viewportWidth="256" android:width="302.3622dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#fff" android:pathData="M240,126a0,0 0,0 0,0 0A112,112 0,0 0,17.14 111a112.29,112.29 0,0 0,0 31.92A112,112 0,0 0,240 127C240,126.67 240,126.34 240,126ZM139.32,226.68a16,16 0,0 0,-22.69 0L68,178.55 27.37,138.27a16,16 0,0 0,0 -22.54l89.26,-88.46a16,16 0,0 0,22.79 -0.05l89.16,87.56a16,16 0,0 0,0.1 22.54Z"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M228.68,137.32l-89.36,89.36a16,16 0,0 0,-22.69 0L68,178.55 27.37,138.27a16,16 0,0 0,0 -22.54l89.26,-88.46a16,16 0,0 0,22.79 -0.05l89.16,87.56a16,16 0,0 0,0.1 22.54Z"
+        android:strokeColor="#406dbf" android:strokeWidth="10"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M27.37,115.73a16,16 0,0 1,0 22.54L16,127Z"
+        android:strokeColor="#406dbf" android:strokeWidth="10"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M128,222a16,16 0,0 1,11.32 4.68L128,238l-11.37,-11.27A16,16 0,0 1,128 222Z"
+        android:strokeColor="#406dbf" android:strokeWidth="10"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M128,16l11.42,11.22a16,16 0,0 1,-22.79 0.05Z"
+        android:strokeColor="#406dbf" android:strokeWidth="10"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M240,126l-11.32,11.32a16,16 0,0 1,-0.1 -22.54L240,126Z"
+        android:strokeColor="#406dbf" android:strokeWidth="10"/>
+    <path android:fillColor="#212121" android:pathData="M144,237.86V238a16,16 0,0 1,-32 0v-0.14a16,16 0,0 1,32 0Z"/>
+    <path android:fillColor="#212121" android:pathData="M256,126a16,16 0,0 1,-16 16c-0.34,0 -0.67,0 -1,0a16,16 0,0 1,-0.27 -31.92c0.42,0 0.84,0 1.27,0A16,16 0,0 1,256 126Z"/>
+    <path android:fillColor="#212121" android:pathData="M144,16v0.14a16,16 0,0 1,-32 0V16a16,16 0,0 1,32 0Z"/>
+    <path android:fillColor="#212121" android:pathData="M32,127a16,16 0,0 1,-14.86 16c-0.38,0 -0.76,0 -1.14,0a16,16 0,0 1,0 -32c0.38,0 0.76,0 1.14,0A16,16 0,0 1,32 127Z"/>
+</vector>

@@ -11,6 +11,7 @@ import com.redesocial.R;
 
 public class Login extends AppCompatActivity {
     private Button register;
+    private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,4 +32,16 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+    private void validateLogin(){
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, Register.class));
+                finish();
+            }
+        });
+    }
+
+
 }
