@@ -11,7 +11,6 @@ import com.redesocial.R;
 
 public class Login extends AppCompatActivity {
     private Button register;
-    private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +22,17 @@ public class Login extends AppCompatActivity {
         setRegister();
     }
 
+    // Chama a tela de registrar ao clicar no botão "cadastrar" usando o método setOnClickListener
     private void setRegister() {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Instancia um objeto intent passando a tela atual e a nova tela
                 startActivity(new Intent(Login.this, Register.class));
+
+                // fecha a tela atual
                 finish();
             }
         });
     }
-
-    private void validateLogin(){
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login.this, Register.class));
-                finish();
-            }
-        });
-    }
-
-
 }

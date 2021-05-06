@@ -8,7 +8,8 @@ import android.os.Handler;
 
 import com.redesocial.R;
 
-public class MainActivity extends AppCompatActivity {
+// Tela de loading
+public class LoadingActivity extends AppCompatActivity {
 
 
     @Override
@@ -19,14 +20,21 @@ public class MainActivity extends AppCompatActivity {
         run();
     }
 
+    /*
+        método que instancia um objeto do tipo handler pra usar a função postDelayed pra adicionar
+        pra tela de loading
+     */
     private void run() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
+            // Chama a tela de login e fecha a de loading
             public void run() {
-                startActivity(new Intent(MainActivity.this, Login.class));
+                startActivity(new Intent(LoadingActivity.this, Login.class));
                 finish();
             }
+
+            // Adiciona o tempo que a tela vai ficar, nesse caso 2s
         }, 2000);
     }
 }

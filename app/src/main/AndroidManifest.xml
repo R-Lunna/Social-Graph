@@ -9,7 +9,10 @@
         android:roundIcon="@drawable/wordlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.RedeSocial">
-        <activity android:name=".activity.HomeActivity"></activity>
+        <activity
+            android:name=".bottom_navegation"
+            android:label="@string/title_activity_bottom_navegation"></activity>
+        <activity android:name=".activity.HomeActivity" />
         <activity android:name=".register" />
         <activity android:name=".activity.Login" />
     </application>
