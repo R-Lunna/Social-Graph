@@ -1,8 +1,11 @@
 package com.redesocial.database;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class Graph
 {
@@ -15,7 +18,7 @@ public class Graph
         if( data == null )
             throw new NullPointerException("Invalid vertex");
 
-        /* Insere um novo vértice no grafo */
+        /* Cria e insere um novo vértice no grafo */
         vertices.add( new Vertex( data ) );
     }
 
@@ -42,13 +45,14 @@ public class Graph
 
     /* Retorna um vértice, se ele existir, buscando pelo email do usuário */
     private Vertex getVertex( String email )
+    throws NullPointerException
     {
         for( Vertex vertex : vertices )
             if ( vertex.getData().getEmail().equals( email ) )
                 return vertex;
 
         /* O vértice não existe */
-        return null;
+        throw new NullPointerException("Vexter not found");
     }
 
     /* Conecta dois gráfos por uma aresta */
@@ -79,6 +83,17 @@ public class Graph
             throw new IllegalArgumentException("Vertex not found");
         }
 
+    }
+
+    /* Retorna o total de arestas no grafo */
+    public int getTotalEdge()
+    {
+        int countEdge = 0;
+
+        for ( Vertex vertex : vertices )
+            countEdge += vertex.getTotalNeighbors();
+
+        return countEdge;
     }
 
     /* Retorna o total de vértices no grafo */
@@ -142,6 +157,14 @@ public class Graph
 
     }
 
+
+    @NotNull
+    @Override
+    public String toString()
+    {
+        return String.format(Locale.ENGLISH,"Graph with %d vertices", length());
+    }
+
 }
 
 class Vertex
@@ -201,5 +224,10 @@ class Vertex
         return false;
     }
 
+    /* Retorna o total de vizinhos ( arestas )*/
+    public int getTotalNeighbors()
+    {
+        return vertices.size();
+    }
 }
 
