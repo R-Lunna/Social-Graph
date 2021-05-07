@@ -33,7 +33,22 @@ public class Graph
             Vertex vertex = vertexIterator.next();
             if( vertex.getData().getEmail().equals( email ) )
             {
+                /* Remove o vértice do grafo */
                 vertexIterator.remove();
+
+                /* Para cada vértice no grafo, remove o vértice da lista de arestas */
+                for ( Vertex vertex1 : vertices )
+                {
+                    try
+                    {
+                        vertex1.removeEdge( email );
+                    }
+                    catch (NullPointerException ignored)
+                    {
+
+                    }
+                }
+
                 return;
             }
         }
@@ -70,6 +85,7 @@ public class Graph
 
     }
 
+    /* Remove uma aresta entre dois vértices (buscados pelo email)*/
     public void removeEdge( String emailA, String emailB )
     throws IllegalArgumentException
     {
@@ -147,7 +163,7 @@ public class Graph
         return vertex.getData();
     }
 
-    /* Retorna, se existir, o usuário especificado indice */
+    /* Retorna, se existir, o usuário especificado pelo indice */
     public User getVertexData( int index )
     throws ArrayIndexOutOfBoundsException
     {
