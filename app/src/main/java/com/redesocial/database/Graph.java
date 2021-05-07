@@ -34,6 +34,9 @@ public class Graph
             }
         }
 
+        /* Lança uma exceção pois o email passado não corresponde a um usuário */
+        throw new IllegalArgumentException("Vertex not found");
+
     }
 
     /* Retorna um vértice, se ele existir, buscando pelo email do usuário */
@@ -48,16 +51,31 @@ public class Graph
     }
 
     /* Conecta dois gráfos por uma aresta */
-    public void linkVertex( String emailA, String emailB )
+    public void addEdge( String emailA, String emailB )
     throws NullPointerException
     {
         try
         {
-            getVertex( emailA ).insert( getVertex( emailB ) );
+            getVertex( emailA ).addEdge( getVertex( emailB ) );
         }
         catch ( NullPointerException e )
         {
             throw new IllegalArgumentException( "Vertex not found" , e );
+        }
+
+    }
+
+    public void removeEdge( String emailA, String emailB )
+    throws IllegalArgumentException
+    {
+        try
+        {
+            Vertex vertex = getVertex( emailA );
+            vertex.removeEdge( emailB );
+        }
+        catch ( NullPointerException e )
+        {
+            throw new IllegalArgumentException("Vertex not found");
         }
 
     }
@@ -111,7 +129,7 @@ class Vertex
         this.data = data;
     }
 
-    public void insert( Vertex data )
+    public void addEdge( Vertex data )
     throws NullPointerException
     {
         if ( data == null )
@@ -120,12 +138,32 @@ class Vertex
         vertices.add( data );
     }
 
+    public void removeEdge( String email )
+    throws NullPointerException
+    {
+        Iterator<Vertex> vertexIterator = vertices.iterator();
+
+        while( vertexIterator.hasNext() )
+        {
+            Vertex vertex = vertexIterator.next();
+            if( vertex.getData().getEmail().equals( email ) )
+            {
+                vertexIterator.remove();
+                return;
+            }
+        }
+
+        /* Lança uma exceção pois o email passado não corresponde a um usuário */
+        throw new NullPointerException("Vertex not found");
+    }
+
+
     public User getData()
     {
         return data;
     }
 
-    public boolean isNeighbors(String email )
+    public boolean isNeighbors( String email )
     {
         for( Vertex vertex : vertices )
             if (vertex.getData().getEmail().equals( email ) )
