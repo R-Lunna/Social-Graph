@@ -8,6 +8,7 @@ public class Graph
 {
     private final List<Vertex> vertices = new LinkedList<>();
 
+    /* Cria um novo vértice para o grafo */
     public void addVertex( User data )
     throws NullPointerException
     {
@@ -87,7 +88,7 @@ public class Graph
     }
 
     /* Testa de o vértice A possui pelo menos uma aresta com o vértice B */
-    public boolean adjacent( String emailA, String emailB )
+    public boolean isAdjacent( String emailA, String emailB )
     throws IllegalArgumentException
     {
         boolean sentinel = false;
@@ -114,6 +115,32 @@ public class Graph
         return false;
     }
 
+    /* Retorna, se existir, o usuário especificado pelo email */
+    public User getVertexData( String email )
+    throws IllegalArgumentException
+    {
+        Vertex vertex = null;
+        try
+        {
+            vertex = getVertex( email );
+        }
+        catch ( NullPointerException e )
+        {
+            throw new IllegalArgumentException("Vertex not found");
+        }
+
+        return vertex.getData();
+    }
+
+    /* Retorna, se existir, o usuário especificado indice */
+    public User getVertexData( int index )
+    throws ArrayIndexOutOfBoundsException
+    {
+        Vertex vertex = null;
+
+        return vertices.get( index ).getData();
+
+    }
 
 }
 
@@ -129,6 +156,7 @@ class Vertex
         this.data = data;
     }
 
+    /* Adiciona uma nova aresta ao vértice */
     public void addEdge( Vertex data )
     throws NullPointerException
     {
@@ -138,6 +166,7 @@ class Vertex
         vertices.add( data );
     }
 
+    /* Remove a aresta do vértice especificada pelo email */
     public void removeEdge( String email )
     throws NullPointerException
     {
@@ -157,12 +186,13 @@ class Vertex
         throw new NullPointerException("Vertex not found");
     }
 
-
+    /* Obtem o usuário armazenado no vértice */
     public User getData()
     {
         return data;
     }
 
+    /* Verifica se um dado vértice (especificado pelo email)é vizinho do vértice atual (ou seja, possui ao menos uma aresta) */
     public boolean isNeighbors( String email )
     {
         for( Vertex vertex : vertices )
@@ -170,7 +200,6 @@ class Vertex
                 return true;
         return false;
     }
-
 
 }
 
