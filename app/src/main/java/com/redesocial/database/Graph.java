@@ -1,5 +1,6 @@
 package com.redesocial.database;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class Graph
 {
     private final List<Vertex> vertices = new LinkedList<>();
 
-    public void insert( User data )
+    public void addVertex( User data )
     throws NullPointerException
     {
         if( data == null )
@@ -17,8 +18,26 @@ public class Graph
         vertices.add( new Vertex( data ) );
     }
 
+    /* Remove um vértice, se existir, buscando pelo email */
+    public void removeVertex( String email )
+    throws IllegalArgumentException
+    {
+        Iterator<Vertex> vertexIterator = vertices.iterator();
+
+        while( vertexIterator.hasNext() )
+        {
+            Vertex vertex = vertexIterator.next();
+            if( vertex.getData().getEmail().equals( email ) )
+            {
+                vertexIterator.remove();
+                return;
+            }
+        }
+
+    }
+
     /* Retorna um vértice, se ele existir, buscando pelo email do usuário */
-    private Vertex getNode( String email )
+    private Vertex getVertex( String email )
     {
         for( Vertex vertex : vertices )
             if ( vertex.getData().getEmail().equals( email ) )
@@ -34,7 +53,7 @@ public class Graph
     {
         try
         {
-            getNode( emailA).insert( getNode( emailB ) );
+            getVertex( emailA ).insert( getVertex( emailB ) );
         }
         catch ( NullPointerException e )
         {
@@ -48,6 +67,35 @@ public class Graph
     {
         return vertices.size();
     }
+
+    /* Testa de o vértice A possui pelo menos uma aresta com o vértice B */
+    public boolean adjacent( String emailA, String emailB )
+    throws IllegalArgumentException
+    {
+        boolean sentinel = false;
+
+        try
+        {
+            sentinel = getVertex( emailA ).isNeighbors( emailB );
+        }
+        catch ( NullPointerException e )
+        {
+            throw new IllegalArgumentException( "Vertex not found" , e );
+        }
+
+        return sentinel;
+    }
+
+    /* Verificia se o grafo contem o usuário especificado pelo email */
+    public boolean contains( String email )
+    {
+        for( Vertex vertex : vertices )
+            if( vertex.getData().getEmail().equals( email ) )
+                return true;
+
+        return false;
+    }
+
 
 }
 
@@ -76,6 +124,15 @@ class Vertex
     {
         return data;
     }
+
+    public boolean isNeighbors(String email )
+    {
+        for( Vertex vertex : vertices )
+            if (vertex.getData().getEmail().equals( email ) )
+                return true;
+        return false;
+    }
+
 
 }
 
