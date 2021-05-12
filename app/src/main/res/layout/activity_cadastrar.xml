@@ -83,7 +83,6 @@
                     android:textColor="@color/white"
                     android:id="@+id/female"
                     />
-
             </RadioGroup>
 
 
