@@ -4,5 +4,7 @@
     <string name="title_follow">Seguir</string>
     <string name="title_graph">Grafo</string>
     <string name="title_setting">Configurações</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

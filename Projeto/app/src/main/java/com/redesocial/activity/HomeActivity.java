@@ -9,6 +9,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.redesocial.R;
+import com.redesocial.control.FollowFragment;
+import com.redesocial.control.GraphFragment;
 import com.redesocial.control.Setting;
 
 public class HomeActivity extends AppCompatActivity {
@@ -26,7 +28,17 @@ public class HomeActivity extends AppCompatActivity {
             // -- O método recebe como parâmetro uma variável do tipo MenuItem,
             switch (item.getItemId()) {
                 // Caso seja a aba de configurações, execute um openView passando o fragmento de tela "configurações"
-                case R.id.setting: openView(new Setting());
+
+                case R.id.setting:
+                    openView(new Setting());
+                    break;
+                case R.id.graph:
+                    openView(new GraphFragment());
+                    break;
+                case R.id.follow:
+                    openView(new FollowFragment());
+                    break;
+
             }
             return false;
         }
