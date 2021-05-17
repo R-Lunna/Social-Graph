@@ -136,7 +136,7 @@ public class Graph
         return sentinel;
     }
 
-    /* Verificia se o grafo contem o usuário especificado pelo email */
+    /* Verifica se o grafo contem o usuário especificado pelo email */
     public boolean contains( String email )
     {
         for( Vertex vertex : vertices )
@@ -230,7 +230,7 @@ class Vertex
         return data;
     }
 
-    /* Verifica se um dado vértice (especificado pelo email)é vizinho do vértice atual (ou seja, possui ao menos uma aresta) */
+    /* Verifica se um dado vértice (especificado pelo email) é vizinho do vértice atual (ou seja, possui ao menos uma aresta) */
     public boolean isNeighbors( String email )
     {
         for( Vertex vertex : vertices )
