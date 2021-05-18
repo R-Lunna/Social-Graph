@@ -11,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.redesocial.R;
 import com.redesocial.control.FollowFragment;
 import com.redesocial.control.GraphFragment;
-import com.redesocial.control.Setting;
+import com.redesocial.control.SettingFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
                 // Caso seja a aba de configurações, execute um openView passando o fragmento de tela "configurações"
 
                 case R.id.setting:
-                    openView(new Setting());
+                    openView(new SettingFragment());
                     break;
                 case R.id.graph:
                     openView(new GraphFragment());

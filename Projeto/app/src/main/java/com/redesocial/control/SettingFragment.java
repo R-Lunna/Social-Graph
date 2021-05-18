@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.redesocial.R;
 
 // A classe setting vai ser um fragmento, pois ela vai ser setada na tela inicial do aplicativo somente quando o botão for clicado
-public class Setting extends Fragment {
+public class SettingFragment extends Fragment {
     private EditText nameUser;
     private EditText newEmail;
     private EditText newPassword;

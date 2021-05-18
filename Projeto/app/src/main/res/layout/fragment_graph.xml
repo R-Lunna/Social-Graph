@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".control.GraphFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="This is the Graph Page" />
+        android:id="@+id/imgGraph"
+        />
 
 </LinearLayout>
