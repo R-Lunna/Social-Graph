@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,22 +24,15 @@ import com.redesocial.R;
 
 
 public class FollowFragment extends Fragment {
-
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-    Query users = ref.child("User");
-
-
     private ListView listview;
     private ArrayAdapter arrayAdapter;
-
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("users?? " + users);
+        listview = (ListView) getActivity().findViewById(R.id.listaSeguir);
+
+        consultarBancoUsuarios();
     }
 
     @Override
@@ -53,22 +47,6 @@ public class FollowFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_follow, container, false);
     }
 
-
-    ValueEventListener eventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            for(DataSnapshot ds : snapshot.getChildren()){
-                String name = ds.child("name").getValue(String.class);
-                Log.d("TAG", name);
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-
-    };
 
 
 
