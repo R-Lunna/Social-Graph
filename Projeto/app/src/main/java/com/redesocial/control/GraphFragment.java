@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.redesocial.R;
 import com.redesocial.activity.DrawGraph;
@@ -16,11 +17,14 @@ public class GraphFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         DrawGraph drawGraph = new DrawGraph();
+        try {
+            drawGraph.Create();
 
-        drawGraph.configZoom();
-        drawGraph.configPainter();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
         //drawGraph.onTouchEvent();
 
     }
@@ -29,6 +33,8 @@ public class GraphFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_graph, container, false);
+
+
 
         View view = inflater.inflate(R.layout.fragment_graph, container, false);
 

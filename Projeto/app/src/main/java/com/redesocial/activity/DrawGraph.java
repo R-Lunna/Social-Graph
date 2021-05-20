@@ -31,7 +31,7 @@ public class DrawGraph extends AppCompatActivity {
     private ScaleGestureDetector scaleGestureDetector;
 
 
-    /*
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +43,16 @@ public class DrawGraph extends AppCompatActivity {
         configPainter();
     }
 
-    */
+    public void Create(){
+        imgGraph = (ImageView) findViewById( R.id.imgGraph );
+
+        configZoom();
+        configPainter();
+    }
+
+
+
+
 
     public void configZoom()
     {

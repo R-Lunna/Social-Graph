@@ -32,7 +32,7 @@ public class FollowFragment extends Fragment {
         super.onCreate(savedInstanceState);
         listview = (ListView) getActivity().findViewById(R.id.listaSeguir);
 
-        consultarBancoUsuarios();
+
     }
 
     @Override
