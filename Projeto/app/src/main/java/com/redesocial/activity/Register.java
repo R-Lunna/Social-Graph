@@ -76,7 +76,7 @@ public class Register extends AppCompatActivity {
         storageReference = storage.getReference();
         urlPhoto.setOnClickListener(v -> {
             Intent intent = new Intent();
-            intent.setType("pictures/*");
+            intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent,1);
         });
@@ -101,7 +101,7 @@ public class Register extends AppCompatActivity {
 
 
         final String randomKey = UUID.randomUUID().toString();
-        StorageReference riversRef = storageReference.child("pictures/"+ randomKey);
+        StorageReference riversRef = storageReference.child("image/"+ randomKey);
 
         riversRef.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
