@@ -125,7 +125,7 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         pd.dismiss();
-                        Toast.makeText(getApplicationContext(), "Errro ao Enviar a Imagem", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Erro ao Enviar a Imagem", Toast.LENGTH_LONG).show();
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -204,6 +204,5 @@ public class Register extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }
