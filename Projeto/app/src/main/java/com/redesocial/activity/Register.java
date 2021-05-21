@@ -45,7 +45,7 @@ public class Register extends AppCompatActivity {
     private RadioButton male;
     private RadioButton female;
     private Button register;
-
+    private User user;
     private Uri imageUri;
 
     private AlertDialog alertDialog;
@@ -69,6 +69,7 @@ public class Register extends AppCompatActivity {
         male = (RadioButton) findViewById(R.id.male);
         female = (RadioButton) findViewById(R.id.female);
         register = (Button) findViewById(R.id.register);
+        user = new User();
     }
 
     private void choosePicture(){
@@ -105,11 +106,20 @@ public class Register extends AppCompatActivity {
 
         riversRef.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        Snackbar.make(findViewById(android.R.id.content), "Imagem Enviada", Snackbar.LENGTH_LONG).show();
+                        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                user.setUrlPhoto(uri.toString());
+                                pd.dismiss();
+                                Snackbar.make(findViewById(android.R.id.content), "Imagem Enviada", Snackbar.LENGTH_LONG).show();
+                            }
+                        });
+
                     }
+
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -174,10 +184,7 @@ public class Register extends AppCompatActivity {
         return alertDialog;
     }
 
-
     private void saveUser() {
-        User user = new User();
-
         user.setName(name.getText().toString());
         user.setEmail(email.getText().toString());
         user.setBirthday(birthday.getText().toString());
@@ -190,6 +197,13 @@ public class Register extends AppCompatActivity {
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("User");
 
         // child cria um id pra o objeto, é como a sequence no banco de dados só que é um id de caracteres
-        databaseUser.child(databaseUser.push().getKey()).setValue(user);
+        databaseUser.child(databaseUser.push().getKey()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                startActivity(new Intent(Register.this, HomeActivity.class));
+                finish();
+            }
+        });
+
     }
 }
