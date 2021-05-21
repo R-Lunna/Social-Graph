@@ -1,7 +1,6 @@
 package com.redesocial.database;
 
-import org.jetbrains.annotations.NotNull;
-
+import java.security.SecureRandom;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,18 +12,69 @@ public class Graph
 
     /* Cria um novo vértice para o grafo */
     public void addVertex( User data )
-    throws NullPointerException
+            throws NullPointerException
     {
         if( data == null )
             throw new NullPointerException("Invalid vertex");
 
         /* Cria e insere um novo vértice no grafo */
-        vertices.add( new Vertex( data ) );
+        Vertex vertex = new Vertex( data );
+
+        boolean sentinel = true;
+
+        int positionX = 0;
+        int positionY = 0;
+
+        if( vertices.size() == 0 )
+        {
+            vertex.setX( positionX );
+            vertex.setY( positionY );
+
+            vertices.add( vertex );
+            return;
+        }
+
+        final int RADIUS = 100;
+        final int MARGIN = 100;
+
+        SecureRandom secureRandom = new SecureRandom();
+
+        while( sentinel )
+        {
+            positionX = secureRandom.nextInt( 2000 );
+            positionY = secureRandom.nextInt( 2000 );
+
+            /* Verifica se a posição colide com algum vértice já criado */
+            for( int count = 0; count < vertices.size(); count++ )
+            {
+                Vertex vertexToCompare = getVertex( count );
+
+                /* Verifica a colisão com a parte esquerda */
+                if( ( positionX + RADIUS >= ( vertexToCompare.getPositionX() - RADIUS - MARGIN )  ) && ( ( positionY + RADIUS >= vertexToCompare.getPositionY() - RADIUS - MARGIN) && (positionY - RADIUS <= vertexToCompare.getPositionY() + RADIUS + MARGIN) ) )
+                {
+                    sentinel = true;
+                }
+                /* Verifica a colisão com a parte direita  */
+                else
+                {
+                    if( ( positionX - RADIUS <= ( vertexToCompare.getPositionX() + RADIUS + MARGIN )  ) && ( ( positionY + RADIUS >= vertexToCompare.getPositionY() - RADIUS - MARGIN) && (positionY - RADIUS <= vertexToCompare.getPositionY() + RADIUS + MARGIN) ) )
+                        sentinel = true;
+                    else
+                        sentinel = false;
+                }
+            }
+        }
+
+        vertex.setX( positionX );
+        vertex.setY( positionY );
+
+
+        vertices.add( vertex );
     }
 
     /* Remove um vértice, se existir, buscando pelo email */
     public void removeVertex( String email )
-    throws IllegalArgumentException
+            throws IllegalArgumentException
     {
         Iterator<Vertex> vertexIterator = vertices.iterator();
 
@@ -60,7 +110,7 @@ public class Graph
 
     /* Retorna um vértice, se ele existir, buscando pelo email do usuário */
     private Vertex getVertex( String email )
-    throws NullPointerException
+            throws NullPointerException
     {
         for( Vertex vertex : vertices )
             if ( vertex.getData().getEmail().equals( email ) )
@@ -72,7 +122,7 @@ public class Graph
 
     /* Conecta dois gráfos por uma aresta */
     public void addEdge( String emailA, String emailB )
-    throws NullPointerException
+            throws NullPointerException
     {
         try
         {
@@ -87,7 +137,7 @@ public class Graph
 
     /* Remove uma aresta entre dois vértices (buscados pelo email)*/
     public void removeEdge( String emailA, String emailB )
-    throws IllegalArgumentException
+            throws IllegalArgumentException
     {
         try
         {
@@ -120,7 +170,7 @@ public class Graph
 
     /* Testa de o vértice A possui pelo menos uma aresta com o vértice B */
     public boolean isAdjacent( String emailA, String emailB )
-    throws IllegalArgumentException
+            throws IllegalArgumentException
     {
         boolean sentinel = false;
 
@@ -148,7 +198,7 @@ public class Graph
 
     /* Retorna, se existir, o usuário especificado pelo email */
     public User getVertexData( String email )
-    throws IllegalArgumentException
+            throws IllegalArgumentException
     {
         Vertex vertex = null;
         try
@@ -165,7 +215,7 @@ public class Graph
 
     /* Retorna, se existir, o usuário especificado pelo indice */
     public User getVertexData( int index )
-    throws ArrayIndexOutOfBoundsException
+            throws ArrayIndexOutOfBoundsException
     {
         Vertex vertex = null;
 
@@ -173,30 +223,91 @@ public class Graph
 
     }
 
-    @NotNull
+    /* Retorna a posição x do vértice especificado pelo índice */
+    public int getVertexX(int index )
+            throws IndexOutOfBoundsException
+    {
+        return vertices.get( index ).getPositionX();
+    }
+
+    /* Retorna a posição x do vértice especificado pelo email */
+    public int getVertexX( String email )
+            throws IndexOutOfBoundsException
+    {
+        return getVertex( email ).getPositionX();
+    }
+
+    /* Retorna a posição y do vértice especificado pelo índice */
+    public int getVertexY(int index )
+            throws IndexOutOfBoundsException
+    {
+        return vertices.get( index ).getPositionY();
+    }
+
+    public int getEdgeX( int indexVertex, int indexEdge )
+            throws IndexOutOfBoundsException
+    {
+        return  getVertex( indexVertex ).getEdgeX( indexEdge );
+
+    }
+
+    public int getEdgeY( int indexVertex, int indexEdge )
+            throws IndexOutOfBoundsException
+    {
+        return  getVertex( indexVertex ).getEdgeY( indexEdge );
+    }
+
+    /* Retorna a posição y do vértice especificado pelo email */
+    public int getVertexY( String email )
+            throws IndexOutOfBoundsException
+    {
+        return getVertex( email ).getPositionY();
+    }
+
+    public Vertex getVertex( int index )
+    {
+        return vertices.get( index );
+    }
+
     @Override
     public String toString()
     {
-        return String.format(Locale.ENGLISH,"Graph with %d vertices", length());
+        return String.format(Locale.ENGLISH,"Graph with %d vertices and %d edges", length(), getTotalEdge());
     }
 
+    public int getVertexLength( int index )
+            throws IndexOutOfBoundsException
+    {
+        return getVertex( index ).getTotalNeighbors();
+    }
 }
 
 class Vertex
 {
     private final User data;
     private final List<Vertex> vertices = new LinkedList<>();
-    private int positionX;
-    private int PositionY;
+    private int positionX = 0;
+    private int positionY = 0;
 
     public Vertex(User data )
     {
         this.data = data;
     }
 
+    /* Retorna a posição x do vértice */
+    public int getEdgeX( int index )
+    {
+        return  vertices.get( index ).getPositionX();
+    }
+
+    public int getEdgeY( int index )
+    {
+        return  vertices.get( index ).getPositionY();
+    }
+
     /* Adiciona uma nova aresta ao vértice */
     public void addEdge( Vertex data )
-    throws NullPointerException
+            throws NullPointerException
     {
         if ( data == null )
             throw new NullPointerException();
@@ -206,7 +317,7 @@ class Vertex
 
     /* Remove a aresta do vértice especificada pelo email */
     public void removeEdge( String email )
-    throws NullPointerException
+            throws NullPointerException
     {
         Iterator<Vertex> vertexIterator = vertices.iterator();
 
@@ -244,5 +355,27 @@ class Vertex
     {
         return vertices.size();
     }
-}
 
+    /* Obtem a posição x do vértice */
+    public int getPositionX()
+    {
+        return positionX;
+    }
+
+    public void setX( int x )
+    {
+        this.positionX = x;
+    }
+
+    public void setY( int y )
+    {
+        this.positionY = y;
+    }
+
+    /* Obtem a posição y do vértice */
+    public int getPositionY()
+    {
+        return positionY;
+    }
+
+}
