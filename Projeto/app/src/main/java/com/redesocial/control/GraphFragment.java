@@ -1,5 +1,7 @@
 package com.redesocial.control;
 
+
+import android.content.res.Resources;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -18,13 +20,20 @@ public class GraphFragment extends Fragment {
     DrawGraph drawGraph;
     Graph graph = new Graph();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        //getApplicationContext().getDisplay().getRealMetrics( displayMetrics );
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics( displayMetrics );
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+        return inflater.inflate(R.layout.fragment_graph, container, false);
+
+    }
+
+    @Override
+    public void onStart() {
+        drawGraph = (DrawGraph) getView().findViewById( R.id.drawGraph );
+
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         drawGraph.initialConfig( displayMetrics );
 
         User user;
@@ -68,23 +77,7 @@ public class GraphFragment extends Fragment {
         graph.addEdge( "3", "0" );
         graph.addEdge( "5", "4" );
 
-
         drawGraph.setGraph( graph );
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        drawGraph = (DrawGraph) getView().findViewById( R.id.drawGraph );
-
-
-
-        return inflater.inflate(R.layout.fragment_graph, container, false);
-
-    }
-
-    @Override
-    public void onStart() {
 
         super.onStart();
     }
