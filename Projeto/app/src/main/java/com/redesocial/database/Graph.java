@@ -41,8 +41,8 @@ public class Graph
 
         while( sentinel )
         {
-            positionX = secureRandom.nextInt( 2000 );
-            positionY = secureRandom.nextInt( 2000 );
+            positionX = secureRandom.nextInt( 2000 ) - 1000;
+            positionY = secureRandom.nextInt(2000 ) - 1000;
 
             /* Verifica se a posição colide com algum vértice já criado */
             for( int count = 0; count < vertices.size(); count++ )
