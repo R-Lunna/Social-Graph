@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.redesocial.R;
 
 import org.w3c.dom.Text;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FollowFragment extends Fragment {
     private LinearLayout linearLayout;
@@ -51,15 +54,30 @@ public class FollowFragment extends Fragment {
                     name.setText(snapshot2.child("name").getValue().toString());
 
                     RelativeLayout relativeLayout = new RelativeLayout(getContext());
-                    ImageView img = new ImageView(getContext());
+                    CircleImageView img = new CircleImageView(getContext());
+                    Button btn = new Button(getContext());
 
                     if (snapshot2.child("urlPhoto").getValue() != null) {
                         Glide.with(getActivity()).load(snapshot2.child("urlPhoto").getValue().toString()).into(img);
                     }
 
-                    name.setPadding(30, 0, 0, 0);
-                    relativeLayout.addView(img, 100, 100);
+                    name.setPadding(400, 0, 0, 0);
+                    name.setTextSize(20);
+
+                    img.setX(20);
+                    img.setBorderWidth(3);
+
+                    btn.setText("Seguir");
+                    btn.setTextColor(Color.WHITE);
+                    btn.setX(400);
+                    btn.setY(100);
+                    btn.setBackgroundColor(Color.CYAN);
+
+                    relativeLayout.addView(img, 250, 250);
                     relativeLayout.addView(name);
+                    relativeLayout.addView(btn);
+                    relativeLayout.setPadding(0, 50, 0, 50);
+
 
                     linearLayout.addView(relativeLayout);
                 }
