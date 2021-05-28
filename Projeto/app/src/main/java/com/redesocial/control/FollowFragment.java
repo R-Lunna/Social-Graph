@@ -71,7 +71,7 @@ public class FollowFragment extends Fragment {
                     btn.setTextColor(Color.WHITE);
                     btn.setX(400);
                     btn.setY(100);
-                    btn.setBackgroundColor(Color.CYAN);
+                    btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
 
                     relativeLayout.addView(img, 250, 250);
                     relativeLayout.addView(name);
