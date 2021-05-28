@@ -9,6 +9,42 @@ public class User {
     private String urlPhoto;
     private String birthday;
     private String sex;
+    private String[] follow;
+    private String[] followers;
+    private int positionX;
+    private int positionY;
+
+    public void setFollow(String[] follow) {
+        this.follow = follow;
+    }
+
+    public void setFollowers(String[] followers) {
+        this.followers = followers;
+    }
+
+    public String[] getFollow() {
+        return follow;
+    }
+
+    public String[] getFollowers() {
+        return followers;
+    }
+
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
+    }
+
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
+    }
 
     public String getName() {
         return name;
