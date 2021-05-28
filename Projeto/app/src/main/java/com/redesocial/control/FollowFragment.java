@@ -29,6 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FollowFragment extends Fragment {
     private LinearLayout linearLayout;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,15 +40,19 @@ public class FollowFragment extends Fragment {
     public void onStart() {
         linearLayout = (LinearLayout) getActivity().findViewById(R.id.lista);
         montarLinha();
+
         super.onStart();
     }
 
     private void montarLinha() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User");
 
+
+
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for (DataSnapshot snapshot2 : snapshot.getChildren()) {
                     TextView name = new TextView(getContext());
                     name.setTextColor(Color.WHITE);
@@ -72,6 +77,15 @@ public class FollowFragment extends Fragment {
                     btn.setX(400);
                     btn.setY(100);
                     btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
+                 ;
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            btn.setBackgroundColor(getResources().getColor(R.color.teal_700));
+                        }
+                    });
+
+
 
                     relativeLayout.addView(img, 250, 250);
                     relativeLayout.addView(name);
@@ -89,5 +103,7 @@ public class FollowFragment extends Fragment {
             }
         });
     }
+
+
 
 }
