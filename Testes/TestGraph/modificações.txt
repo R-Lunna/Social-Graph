@@ -1,0 +1,4 @@
+trim nos emails
+remove vertex remove arestar de todos os vértices
+
+verificar se laço conta como duas aréstas
