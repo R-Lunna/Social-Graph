@@ -29,7 +29,7 @@ public class DrawGraph extends View {
     private float cameraPositionY = 0;
     private float xTouch = 0;
     private float yTouch = 0;
-    private final int INCREMENT_CAMERA_POSITION = 25;
+    private final int INCREMENT_CAMERA_POSITION = 100;
     private final int RADIUS_INCREMENT = 10;
     private int relativeDistance = 0;
     private int radius = 100;
@@ -67,7 +67,7 @@ public class DrawGraph extends View {
 
         paintLine = new Paint( Paint.ANTI_ALIAS_FLAG ) ;
         paintLine.setColor( Color.rgb(64, 109, 191) );
-        paintLine.setStrokeWidth(10);
+        paintLine.setStrokeWidth(5);
         paintLine.setStyle(Paint.Style.STROKE);
     }
 
@@ -144,7 +144,7 @@ public class DrawGraph extends View {
             nodePositionY = graph.getVertexY( indexVertex );
 
             /* Desenha o nome do usuário */
-            myCanvas.drawText( graph.getVertexData( indexVertex ).getName(), nodePositionX - radius + cameraPositionX, nodePositionY +  radius + 50 + cameraPositionY, paintText );
+            myCanvas.drawText( graph.getVertexData( indexVertex ).getName(), nodePositionX - radius + cameraPositionX, nodePositionY +  radius + 60 + cameraPositionY, paintText );
 
         }
 

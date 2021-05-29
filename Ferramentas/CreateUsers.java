@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
+import java.io.UnsupportedEncodingException;
 
 public class CreateUsers
 {
@@ -63,9 +64,9 @@ public class CreateUsers
 
 		try
 		{
-			formatter = new Formatter( filename );
+			formatter = new Formatter( filename, "UTF-8");
 		}
-		catch( FileNotFoundException e )
+		catch( FileNotFoundException | UnsupportedEncodingException e )
 		{
 			System.out.println("Erro ao abrir arquivo");
 			System.exit( 1 );
@@ -89,12 +90,12 @@ public class CreateUsers
 			formatter.format("\t\t\"urlPhoto\" : \"%s\",%n", "https://qualquerurl.com.br");
 			formatter.format("\t\t\"birthday\" : \"%02d/%02d/%04d\",%n", random.nextInt( 31) + 1, random.nextInt( 12 ) + 1, random.nextInt( 100 ) + 1921);
 			formatter.format("\t\t\"sex\" : \"%s\",%n", sex);
-			formatter.format("\t\t\"positionX\" : \"%d\",%n", random.nextInt(2000));
-			formatter.format("\t\t\"positionY\" : \"%d\",%n", random.nextInt(2000));
+			formatter.format("\t\t\"positionX\" : \"%d\",%n", random.nextInt(5000) * ((random.nextInt(2) == 0)?-1:1));
+			formatter.format("\t\t\"positionY\" : \"%d\",%n", random.nextInt(5000) * ((random.nextInt(2) == 0)?-1:1));
 
 			formatter.format("\t\t\"Edges\" : [%n");
 
-			int countEdges = random.nextInt( size );
+			int countEdges = random.nextInt( (int)(size * 0.10) );
 
 			for( int count2 = 0; count2 < countEdges; count2++ )
 			{
