@@ -54,6 +54,8 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:id="@+id/birthday"
+                android:textIsSelectable="true"
+                android:focusable="false"
                 />
 
             <RadioGroup

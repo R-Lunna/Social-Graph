@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -29,6 +31,8 @@ import com.google.firebase.storage.UploadTask;
 import com.redesocial.R;
 import com.redesocial.database.User;
 
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Register extends AppCompatActivity {
@@ -47,8 +51,8 @@ public class Register extends AppCompatActivity {
     private Button register;
     private User user;
     private Uri imageUri;
-
     private AlertDialog alertDialog;
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,20 @@ public class Register extends AppCompatActivity {
         checkObject();
         choosePicture();
         setRegister();
+        setCalender();
+    }
+
+    private void setCalender() {
+        Calendar calendar = Calendar.getInstance();
+
+        int thisDay = calendar.get( Calendar.DAY_OF_MONTH );
+        int thisMonth = calendar.get( Calendar.MONTH );
+        int thisYear = calendar.get( Calendar.YEAR );
+
+        datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> birthday.setText( String.format(Locale.getDefault(),"%02d/%02d/%4d", dayOfMonth, month, year ) ), thisYear, thisMonth, thisDay );
+
+        birthday.setOnClickListener(v -> datePickerDialog.show());
+        birthday.setOnFocusChangeListener( ( view, hasFocus) -> datePickerDialog.show());
     }
 
     private void checkObject() {
