@@ -78,13 +78,12 @@
                     />
 
                 <RadioButton
+                    android:id="@+id/female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="60dp"
                     android:text="Feminino"
-                    android:textColor="@color/white"
-                    android:id="@+id/female"
-                    />
+                    android:textColor="@color/white" />
             </RadioGroup>
 
 

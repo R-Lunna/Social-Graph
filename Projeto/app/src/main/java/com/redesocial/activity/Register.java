@@ -156,11 +156,57 @@ public class Register extends AppCompatActivity {
     }
 
     private void checkInfo(AlertDialog alertDialog) {
-        if (email.getText().toString().contains("@")) {
-            saveUser();
-        } else {
-            error(email, "Email inválido", alertDialog);
+
+        boolean sentinel = true;
+
+        if( !name.getText().toString().matches("\\S+.\\S+") )
+        {
+            error(name, "Nome inválido", alertDialog);
+            sentinel = false;
         }
+
+        if( birthday.getText().toString().matches("DD//MM//AAAA"))
+        {
+            error(birthday, "Data inválida", alertDialog);
+            sentinel = false;
+        }
+
+        if ( !email.getText().toString().matches("[a-zA-z_0-9]+@[a-zA-Z0-9.]+"))
+        {
+            error(email, "Email inválido", alertDialog);
+            sentinel = false;
+        }
+
+        if( !password.getText().toString().matches("\\S+.\\S+") )
+        {
+            error(password, "Senha inválida", alertDialog);
+            sentinel = false;
+        }
+
+        if( !confirmPassword.getText().toString().matches("\\S+.\\S+") )
+        {
+            error(confirmPassword, "Senha inválida", alertDialog);
+            sentinel = false;
+        }
+
+        if( !password.getText().toString().equals( confirmPassword.getText().toString()))
+        {
+            error(password, "Senhas diferentes", alertDialog);
+            error(confirmPassword, "Senhas diferentes", alertDialog);
+            sentinel = false;
+        }
+
+
+        if( !(male.isChecked() || female.isChecked()) )
+        {
+            male.setError("Error");
+            female.setError("Error");
+            sentinel = false;
+        }
+
+
+        if( sentinel )
+            saveUser();
     }
 
 
@@ -172,12 +218,7 @@ public class Register extends AppCompatActivity {
     }
 
     private void setRegister() {
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInfo(showAlert());
-            }
-        });
+        register.setOnClickListener(v -> checkInfo(showAlert()));
     }
 
     private AlertDialog showAlert() {
