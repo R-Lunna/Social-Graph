@@ -82,19 +82,19 @@ public class CreateUsers
 
 			formatter.format("\t{%n");
 
-			formatter.format("\t\t\"id\" : \"%d\",%n", count + 1L);
+			formatter.format("\t\t\"id\" : \"%d\",%n", count);
 			formatter.format("\t\t\"name\" : \"%s\",%n", name);
 			formatter.format("\t\t\"email\" : \"%s\",%n", email.replace(" ", ""));
 			formatter.format("\t\t\"password\" : \"%s\",%n", "qualquersenha");
 			formatter.format("\t\t\"urlPhoto\" : \"%s\",%n", "https://qualquerurl.com.br");
 			formatter.format("\t\t\"birthday\" : \"%02d/%02d/%04d\",%n", random.nextInt( 31) + 1, random.nextInt( 12 ) + 1, random.nextInt( 100 ) + 1921);
 			formatter.format("\t\t\"sex\" : \"%s\",%n", sex);
-			formatter.format("\t\t\"positionX\" : \"%d\",%n", random.nextInt(1000));
-			formatter.format("\t\t\"positionY\" : \"%d\",%n", random.nextInt(1000));
+			formatter.format("\t\t\"positionX\" : \"%d\",%n", random.nextInt(2000));
+			formatter.format("\t\t\"positionY\" : \"%d\",%n", random.nextInt(2000));
 
 			formatter.format("\t\t\"Edges\" : [%n");
 
-			int countEdges = random.nextInt( size +1 );
+			int countEdges = random.nextInt( size );
 
 			for( int count2 = 0; count2 < countEdges; count2++ )
 			{
@@ -102,8 +102,8 @@ public class CreateUsers
 				int edge = 0;
 				while( sentinel )
 				{
-					edge = random.nextInt( size +1 ) + 1;
-					if( edge != count + 1 )
+					edge = random.nextInt( size );
+					if( edge != count )
 						sentinel = false;
 					
 				}

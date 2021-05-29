@@ -82,7 +82,10 @@ public class GraphFragment extends Fragment {
 
                     for( DataSnapshot dataSnapshot1 : dataSnapshot.child("Edges").getChildren() )
                     {
-                        edgesAux.add( (Integer.parseInt( dataSnapshot1.getValue().toString() ) ) );
+                        String s = dataSnapshot1.getValue().toString();
+                        Log.println(Log.INFO, "Teste de Aresta: ", s);
+
+                        edgesAux.add( (Integer.parseInt( s ) ) );
                     }
 
                     edges = new int[ edgesAux.size() ];
@@ -93,6 +96,9 @@ public class GraphFragment extends Fragment {
 
                     graph.importVertex( new User( id, name, email, password, urlPhoto, birthday, sex, positionX, positionY, edges ) );
                 }
+
+                /* Configura todas arestas */
+                graph.configEdges();
             }
 
             @Override
@@ -102,11 +108,9 @@ public class GraphFragment extends Fragment {
             }
         });
 
-        /* Configura todas arestas */
-        graph.configEdges();
+
 
         drawGraph.setGraph( graph );
-        Log.println( Log.INFO,"works", "Cheguei");
 
         super.onStart();
     }

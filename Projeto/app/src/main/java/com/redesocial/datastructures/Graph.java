@@ -102,23 +102,19 @@ public class Graph
     {
         for( Vertex vertex : vertices )
         {
-            for( int edge : vertex.getData().getEdges() )
+            int[] edges = vertex.getData().getEdges();
+            for( int edge :  edges )
             {
-                vertex.addEdge( getVertex( getUserByID( edge ).getEmail() ) );
+                vertex.addEdge( getVertexByID( edge ) );
             }
         }
     }
-
-
-
 
     /* Obtem o último ID do último elemento armazenado na lista */
     public int getLastID()
     {
         return vertices.get( vertices.size() -1 ).getID();
     }
-
-
 
     /* Remove um vértice, se existir, buscando pelo email */
     public void removeVertex( String email )
@@ -166,6 +162,18 @@ public class Graph
 
         /* O vértice não existe */
         throw new NullPointerException("Vexter not found");
+    }
+
+    /* Retorna um vértice, se ele existir, buscando pelo id do usuário */
+    private Vertex getVertexByID( int id )
+            throws IllegalArgumentException
+    {
+        for( Vertex vertex : vertices )
+            if ( vertex.getData().getId() == id )
+                return vertex;
+
+        /* O vértice não existe */
+        throw new IllegalArgumentException("Vexter not found");
     }
 
     /* Conecta dois gráfos por uma aresta */
@@ -284,7 +292,7 @@ public class Graph
     }
 
     /* Retorna a posição x do vértice especificado pelo índice */
-    public int getVertexX(int index )
+    public int getVertexX( int index )
             throws IndexOutOfBoundsException
     {
         return vertices.get( index ).getPositionX();
