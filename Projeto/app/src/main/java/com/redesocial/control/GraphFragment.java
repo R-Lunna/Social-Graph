@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.redesocial.R;
 import com.redesocial.activity.DrawGraph;
-import com.redesocial.database.Graph;
+import com.redesocial.datastructures.Graph;
 import com.redesocial.database.User;
 
 import java.util.LinkedList;

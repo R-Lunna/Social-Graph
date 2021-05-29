@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
-import com.redesocial.database.Graph;
+import com.redesocial.datastructures.Graph;
 
 public class DrawGraph extends View {
 

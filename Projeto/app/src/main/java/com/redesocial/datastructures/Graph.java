@@ -1,4 +1,6 @@
-package com.redesocial.database;
+package com.redesocial.datastructures;
+
+import com.redesocial.database.User;
 
 import java.security.SecureRandom;
 import java.util.Iterator;
