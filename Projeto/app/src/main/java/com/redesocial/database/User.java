@@ -12,6 +12,7 @@ public class User {
     private String sex;
     private int positionX;
     private int positionY;
+    private int[] edges;
 
     public User()
     {
@@ -19,7 +20,7 @@ public class User {
     }
 
 
-    public User( int id, String name, String email, String password, String urlPhoto, String birthday, String sex, int positionX, int positionY )
+    public User( int id, String name, String email, String password, String urlPhoto, String birthday, String sex, int positionX, int positionY, int[] edges )
     throws IllegalArgumentException
     {
         if( id < 0 )
@@ -34,6 +35,7 @@ public class User {
         this.sex = sex;
         this.positionX = positionX;
         this.positionY = positionY;
+        this.edges = edges;
     }
 
     public int getId() {
@@ -111,5 +113,13 @@ public class User {
 
     public void setPositionY(int positionY) {
         this.positionY = positionY;
+    }
+
+    public int[] getEdges() {
+        return edges;
+    }
+
+    public void setEdges(int[] edges) {
+        this.edges = edges;
     }
 }

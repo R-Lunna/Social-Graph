@@ -8,10 +8,22 @@ import java.util.Locale;
 
 public class Graph
 {
+
     private final List<Vertex> vertices = new LinkedList<>();
+    private static final Graph graph = new Graph();
+
+    private Graph()
+    {
+
+    }
+
+    public static Graph getGraph()
+    {
+        return graph;
+    }
 
     /* Cria um novo vértice para o grafo */
-    public void addVertex( User data )
+    public void addNewVertex(User data )
             throws NullPointerException
     {
         if( data == null )
@@ -71,6 +83,40 @@ public class Graph
 
         vertices.add( vertex );
     }
+
+    public void importVertex( User data )
+    throws NullPointerException
+    {
+        if( data == null )
+            throw new NullPointerException("Invalid vertex");
+
+        Vertex vertex = new Vertex( data );
+        vertices.add( vertex );
+
+
+    }
+
+    public void configEdges()
+    {
+        for( Vertex vertex : vertices )
+        {
+            for( int edge : vertex.getData().getEdges() )
+            {
+                vertex.addEdge( getVertex( getUserByID( edge ).getEmail() ) );
+            }
+        }
+    }
+
+
+
+
+    /* Obtem o último ID do último elemento armazenado na lista */
+    public int getLastID()
+    {
+        return vertices.get( vertices.size() -1 ).getID();
+    }
+
+
 
     /* Remove um vértice, se existir, buscando pelo email */
     public void removeVertex( String email )
@@ -223,6 +269,18 @@ public class Graph
 
     }
 
+    public User getUserByID( int id )
+            throws IllegalArgumentException
+    {
+
+        for( Vertex vertex : vertices )
+            if( vertex.getData().getId() == id )
+                return vertex.getData();
+
+        throw new IllegalArgumentException("Vertex not found");
+
+    }
+
     /* Retorna a posição x do vértice especificado pelo índice */
     public int getVertexX(int index )
             throws IndexOutOfBoundsException
@@ -292,6 +350,9 @@ class Vertex
     public Vertex(User data )
     {
         this.data = data;
+
+        positionX = data.getPositionX();
+        positionY = data.getPositionY();
     }
 
     /* Retorna a posição x do vértice */
@@ -378,4 +439,8 @@ class Vertex
         return positionY;
     }
 
+    public int getID()
+    {
+        return data.getId();
+    }
 }
