@@ -50,7 +50,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
-                android:hint="DD/MM/AAAA"
+                android:hint="Data de Nascimento"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:id="@+id/birthday"
