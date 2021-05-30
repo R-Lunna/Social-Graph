@@ -128,6 +128,7 @@ public class Register extends AppCompatActivity {
                 .addOnSuccessListener(taskSnapshot -> riversRef.getDownloadUrl().addOnSuccessListener(uri ->
                 {
                     user.setUrlPhoto(uri.toString());
+
                     pd.dismiss();
                     Snackbar.make(findViewById(android.R.id.content), "Imagem Enviada", Snackbar.LENGTH_LONG).show();
                 }))
@@ -238,6 +239,7 @@ public class Register extends AppCompatActivity {
         user.setPassword(password.getText().toString());
         if (male.isChecked()) user.setSex(male.getText().toString());
         else user.setSex(female.getText().toString());
+        if(user.getUrlPhoto()==null) user.setUrlPhoto("");
 
         // Referencia a tabela usuário no objeto databaseUser
         // Como se tivesse fazendo um insert no banco

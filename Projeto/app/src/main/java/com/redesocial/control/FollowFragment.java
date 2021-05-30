@@ -1,6 +1,7 @@
 package com.redesocial.control;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,17 @@ public class FollowFragment extends Fragment {
                     CircleImageView img = new CircleImageView(getContext());
                     Button btn = new Button(getContext());
 
-                    if (snapshot2.child("urlPhoto").getValue() != null) {
+
+                    if(snapshot2.child("urlPhoto").getValue().toString().isEmpty()){
+                        Glide.with(getActivity()).load("").placeholder(R.drawable.ic_baseline_account_circle_24).into(img);
+                    } else{
                         Glide.with(getActivity()).load(snapshot2.child("urlPhoto").getValue().toString()).into(img);
+
+                        Log.d("msg", snapshot2.child("urlPhoto").getValue().toString() );
                     }
+
+
+
 
                     name.setPadding(400, 0, 0, 0);
                     name.setTextSize(20);
