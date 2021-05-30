@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -93,7 +94,8 @@ public class Register extends AppCompatActivity {
     private void choosePicture(){
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        urlPhoto.setOnClickListener(v -> {
+        urlPhoto.setOnClickListener(v ->
+        {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -105,7 +107,7 @@ public class Register extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode,resultCode,data);
 
-        if(requestCode==1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+        if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
             urlPhoto.setImageURI(imageUri);
             uploadPicture();
@@ -123,89 +125,74 @@ public class Register extends AppCompatActivity {
         StorageReference riversRef = storageReference.child("image/"+ randomKey);
 
         riversRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                user.setUrlPhoto(uri.toString());
-                                pd.dismiss();
-                                Snackbar.make(findViewById(android.R.id.content), "Imagem Enviada", Snackbar.LENGTH_LONG).show();
-                            }
-                        });
-
-                    }
-
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        pd.dismiss();
-                        Toast.makeText(getApplicationContext(), "Erro ao Enviar a Imagem", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double progressPercent = (100.00 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                pd.setMessage("" + (int) progressPercent + "%");
-            }
-        });
+                .addOnSuccessListener(taskSnapshot -> riversRef.getDownloadUrl().addOnSuccessListener(uri ->
+                {
+                    user.setUrlPhoto(uri.toString());
+                    pd.dismiss();
+                    Snackbar.make(findViewById(android.R.id.content), "Imagem Enviada", Snackbar.LENGTH_LONG).show();
+                }))
+                .addOnFailureListener(exception ->
+                {
+                    pd.dismiss();
+                    Toast.makeText(getApplicationContext(), "Erro ao Enviar a Imagem", Toast.LENGTH_LONG).show();
+                }).addOnProgressListener(snapshot -> {
+                    double progressPercent = (100.00 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                    pd.setMessage("" + (int) progressPercent + "%");
+                });
 
     }
 
     private void checkInfo(AlertDialog alertDialog) {
 
-        boolean sentinel = true;
+        boolean sentinelRegister = true;
 
-        if( !name.getText().toString().matches("\\S+.\\S+") )
+        if( !name.getText().toString().matches("\\S*.\\S*") )
         {
             error(name, "Nome inválido", alertDialog);
-            sentinel = false;
+            sentinelRegister = false;
         }
 
-        if( birthday.getText().toString().matches("DD//MM//AAAA"))
+        if( birthday.getText().toString().isEmpty())
         {
             error(birthday, "Data inválida", alertDialog);
-            sentinel = false;
+            sentinelRegister = false;
         }
 
-        if ( !email.getText().toString().matches("[a-zA-z_0-9]+@[a-zA-Z0-9.]+"))
+        if ( !email.getText().toString().matches("[a-zA-z_0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+"))
         {
             error(email, "Email inválido", alertDialog);
-            sentinel = false;
+            sentinelRegister = false;
         }
 
-        if( !password.getText().toString().matches("\\S+.\\S+") )
+        if( !password.getText().toString().matches("\\S*.\\S*") )
         {
             error(password, "Senha inválida", alertDialog);
-            sentinel = false;
+            sentinelRegister = false;
         }
 
-        if( !confirmPassword.getText().toString().matches("\\S+.\\S+") )
+        if( !confirmPassword.getText().toString().matches("\\S*.\\S*") )
         {
             error(confirmPassword, "Senha inválida", alertDialog);
-            sentinel = false;
+            sentinelRegister = false;
         }
 
         if( !password.getText().toString().equals( confirmPassword.getText().toString()))
         {
-            error(password, "Senhas diferentes", alertDialog);
             error(confirmPassword, "Senhas diferentes", alertDialog);
-            sentinel = false;
+            sentinelRegister = false;
         }
 
 
         if( !(male.isChecked() || female.isChecked()) )
         {
             male.setError("Error");
-            female.setError("Error");
-            sentinel = false;
+            male.requestFocus();
+            alertDialog.dismiss();
+            sentinelRegister = false;
         }
 
 
-        if( sentinel )
+        if( sentinelRegister )
             saveUser();
     }
 
@@ -222,6 +209,7 @@ public class Register extends AppCompatActivity {
     }
 
     private AlertDialog showAlert() {
+
         // Instancia o objeto do tipo alertdialog passando a tela atual
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Register.this);
 
@@ -256,12 +244,9 @@ public class Register extends AppCompatActivity {
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("User");
 
         // child cria um id pra o objeto, é como a sequence no banco de dados só que é um id de caracteres
-        databaseUser.child(databaseUser.push().getKey()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                startActivity(new Intent(Register.this, HomeActivity.class));
-                finish();
-            }
+        databaseUser.child(databaseUser.push().getKey()).setValue(user).addOnSuccessListener(aVoid -> {
+            startActivity(new Intent(Register.this, HomeActivity.class));
+            finish();
         });
     }
 }
