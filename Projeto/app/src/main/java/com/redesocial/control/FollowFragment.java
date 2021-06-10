@@ -1,5 +1,7 @@
 package com.redesocial.control;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +53,7 @@ public class FollowFragment extends Fragment {
 
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint({"UseCompatLoadingForDrawables", "ResourceType"})
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -72,9 +75,6 @@ public class FollowFragment extends Fragment {
                         Log.d("msg", snapshot2.child("urlPhoto").getValue().toString() );
                     }
 
-
-
-
                     name.setPadding(400, 0, 0, 0);
                     name.setTextSize(20);
 
@@ -86,21 +86,29 @@ public class FollowFragment extends Fragment {
                     btn.setX(400);
                     btn.setY(100);
                     btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
-                 ;
+
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            btn.setBackgroundColor(getResources().getColor(R.color.teal_700));
+
+                            if (btn.getText().equals("Seguir")) {
+                                btn.setBackgroundColor(getResources().getColor(R.color.teal_700));
+                                btn.setText("Parar de seguir");
+                                btn.setTextColor(Color.WHITE);
+                            } else {
+                                btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
+                                btn.setText("Seguir");
+                                btn.setTextColor(Color.WHITE);
+                            }
+
                         }
                     });
-
-
 
                     relativeLayout.addView(img, 250, 250);
                     relativeLayout.addView(name);
                     relativeLayout.addView(btn);
                     relativeLayout.setPadding(0, 50, 0, 50);
-
+                    relativeLayout.setBackground(getResources().getDrawable(R.drawable.borda));
 
                     linearLayout.addView(relativeLayout);
                 }
