@@ -14,6 +14,8 @@ import android.view.View;
 
 import com.redesocial.datastructures.Graph;
 
+import java.util.List;
+
 public class DrawGraph extends View {
 
     private Bitmap bitmap;
@@ -99,7 +101,7 @@ public class DrawGraph extends View {
         /* Desenhando o gráfo */
         drawGraph();
 
-        canvas.drawBitmap( bitmap, 0, 0, paintVertex);
+        canvas.drawBitmap( bitmap, 0, 0, paintVertex );
         canvas.restore();
     }
 
@@ -114,6 +116,8 @@ public class DrawGraph extends View {
         {
             nodePositionX = graph.getVertexX( indexVertex );
             nodePositionY = graph.getVertexY( indexVertex );
+
+
 
             /* Percorre as arestas do vértice */
             for( int indexEdge = 0; indexEdge < graph.getVertexLength( indexVertex ); indexEdge++ )
@@ -199,10 +203,12 @@ public class DrawGraph extends View {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
 
+
+                /*
                 if( detector.getScaleFactor() > 1 )
                 {
                     radius += RADIUS_INCREMENT;
-                    relativeDistance += RADIUS_INCREMENT;
+                    //relativeDistance += RADIUS_INCREMENT;
                 }
 
                 else
@@ -211,6 +217,9 @@ public class DrawGraph extends View {
                     radius -= RADIUS_INCREMENT;
                     relativeDistance -= RADIUS_INCREMENT;
                 }
+                */
+
+
 
                 return true;
             }
