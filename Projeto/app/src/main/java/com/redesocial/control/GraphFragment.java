@@ -3,16 +3,14 @@ package com.redesocial.control;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,11 +20,10 @@ import com.redesocial.R;
 import com.redesocial.activity.DrawGraph;
 import com.redesocial.datastructures.Graph;
 import com.redesocial.database.User;
-
 import java.util.LinkedList;
 import java.util.List;
 
-public class GraphFragment extends Fragment {
+public class GraphFragment extends Fragment{
 
     DrawGraph drawGraph;
     Graph graph = Graph.getGraph();
@@ -114,4 +111,6 @@ public class GraphFragment extends Fragment {
 
         super.onStart();
     }
+
+
 }
