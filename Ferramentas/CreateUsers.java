@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 public class CreateUsers
 {
@@ -72,6 +73,8 @@ public class CreateUsers
 			System.exit( 1 );
 		}
 		
+		ArrayList<Position> positions = new ArrayList<>();
+
 		formatter.format("[%n");
 		for( int count = 0; count < size; count++ )
 		{
@@ -87,19 +90,49 @@ public class CreateUsers
 			formatter.format("\t\t\"name\" : \"%s\",%n", name);
 			formatter.format("\t\t\"email\" : \"%s\",%n", email.replace(" ", ""));
 			formatter.format("\t\t\"password\" : \"%s\",%n", "qualquersenha");
-			formatter.format("\t\t\"urlPhoto\" : \"%s\",%n", "https://qualquerurl.com.br");
+			formatter.format("\t\t\"urlPhoto\" : \"%s\",%n", "");
 			formatter.format("\t\t\"birthday\" : \"%02d/%02d/%04d\",%n", random.nextInt( 31) + 1, random.nextInt( 12 ) + 1, random.nextInt( 100 ) + 1921);
 			formatter.format("\t\t\"sex\" : \"%s\",%n", sex);
-			formatter.format("\t\t\"positionX\" : \"%d\",%n", random.nextInt(5000) * ((random.nextInt(2) == 0)?-1:1));
-			formatter.format("\t\t\"positionY\" : \"%d\",%n", random.nextInt(5000) * ((random.nextInt(2) == 0)?-1:1));
+
+			/* Calcula posições únicas */
+			Position position = new Position( 0, 0 );
+			int x = 0;
+			int y = 0;
+			boolean sentinel = true;
+			final int MARGIN = 100;
+			final int RADIUS = 100;
+
+			while( sentinel )
+			{
+				sentinel = false;
+
+				x = random.nextInt(10000) * ((random.nextInt(2) == 0)?-1:1);
+				y = random.nextInt(10000) * ((random.nextInt(2) == 0)?-1:1);
+
+				for( Position posAux : positions )
+				{
+					/* Verifica se há colisão */
+					if( Math.sqrt( Math.pow( (posAux.getX() - x), 2) + Math.pow( posAux.getY() - y, 2)  ) < MARGIN + RADIUS + RADIUS )
+						sentinel = true;
+				}
+			}
+
+			position.setX( x );
+			position.setY( y );
+
+			positions.add( position );
+
+			formatter.format("\t\t\"positionX\" : \"%d\",%n", position.getX());
+			formatter.format("\t\t\"positionY\" : \"%d\",%n", position.getY());
 
 			formatter.format("\t\t\"Edges\" : [%n");
 
-			int countEdges = random.nextInt( (int)(size * 0.10) );
+			int countEdges = random.nextInt( (int)(size * 0.15) );
+			//int countEdges = random.nextInt( size );
 
 			for( int count2 = 0; count2 < countEdges; count2++ )
 			{
-				boolean sentinel = true;
+				sentinel = true;
 				int edge = 0;
 				while( sentinel )
 				{
@@ -135,4 +168,36 @@ public class CreateUsers
 
 
 
+}
+
+class Position
+{
+	int x;
+	int y;
+
+	public Position( int x, int y )
+	{
+		this.x = x;
+		this.y = y;
+	}
+
+	public int getX()
+	{
+		return x;
+	}
+
+	public int getY()
+	{
+		return y;
+	}
+
+	public void setX( int x )
+	{
+		this.x = x;
+	}
+
+	public void setY( int y )
+	{
+		this.y = y;
+	}
 }
