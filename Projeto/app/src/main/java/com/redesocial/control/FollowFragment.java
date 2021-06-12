@@ -85,6 +85,7 @@ public class FollowFragment extends Fragment {
                     btn.setTextColor(Color.WHITE);
                     btn.setX(400);
                     btn.setY(100);
+                    btn.setWidth(100);
                     btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
 
                     btn.setOnClickListener(new View.OnClickListener() {
