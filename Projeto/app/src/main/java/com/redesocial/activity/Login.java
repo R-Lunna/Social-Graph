@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.redesocial.R;
+import com.redesocial.database.LocalUser;
 import com.redesocial.database.User;
 
 public class Login extends AppCompatActivity {
@@ -100,6 +101,7 @@ public class Login extends AppCompatActivity {
                 for (DataSnapshot snapshot2 : snapshot.getChildren()) {
                     if (snapshot2.child("email").getValue().toString().equalsIgnoreCase(email) && snapshot2.child("password").getValue().toString().equals(password)) {
                         exist = true;
+                        LocalUser localUser = new LocalUser(Integer.parseInt(snapshot2.child("id").getValue().toString()));
                         startActivity(new Intent(Login.this, HomeActivity.class));
                     }
                 }
