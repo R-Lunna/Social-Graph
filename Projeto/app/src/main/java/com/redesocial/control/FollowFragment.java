@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.redesocial.R;
+import com.redesocial.database.LocalUser;
 
 import org.w3c.dom.Text;
 
@@ -56,6 +57,7 @@ public class FollowFragment extends Fragment {
             @SuppressLint({"UseCompatLoadingForDrawables", "ResourceType"})
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                LocalUser localUser = new LocalUser();
 
                 for (DataSnapshot snapshot2 : snapshot.getChildren()) {
                     TextView name = new TextView(getContext());
@@ -66,6 +68,9 @@ public class FollowFragment extends Fragment {
                     CircleImageView img = new CircleImageView(getContext());
                     Button btn = new Button(getContext());
 
+                    if(Integer.parseInt(snapshot2.child("id").getValue().toString()) == localUser.getId()){
+                        continue;
+                    }
 
                     if(snapshot2.child("urlPhoto").getValue().toString().isEmpty()){
                         Glide.with(getActivity()).load("").placeholder(R.drawable.ic_baseline_account_circle_24).into(img);
