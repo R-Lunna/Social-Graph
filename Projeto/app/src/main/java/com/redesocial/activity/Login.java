@@ -42,6 +42,13 @@ public class Login extends AppCompatActivity {
         setLogin();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //finish();
+        setContentView(R.layout.activity_cadastrar);
+    }
+
 
     private void checkLogin(AlertDialog alertDialog) {
         email = (EditText) findViewById(R.id.emailLogin);
@@ -125,7 +132,7 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(Login.this, Register.class));
 
                 // fecha a tela atual
-                finish();
+
             }
         });
     }

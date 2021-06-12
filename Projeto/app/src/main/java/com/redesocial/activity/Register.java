@@ -55,6 +55,15 @@ public class Register extends AppCompatActivity {
     private AlertDialog alertDialog;
     private DatePickerDialog datePickerDialog;
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        setContentView(R.layout.activity_login);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,6 +204,7 @@ public class Register extends AppCompatActivity {
 
         if( sentinelRegister )
             saveUser();
+
     }
 
 
