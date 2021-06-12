@@ -57,9 +57,12 @@ public class FollowFragment extends Fragment {
             @SuppressLint({"UseCompatLoadingForDrawables", "ResourceType"})
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                LocalUser localUser = new LocalUser();
+
 
                 for (DataSnapshot snapshot2 : snapshot.getChildren()) {
+                    if(Integer.parseInt(snapshot2.child("id").getValue().toString()) == LocalUser.getId()){
+                        continue;
+                    }
                     TextView name = new TextView(getContext());
                     name.setTextColor(Color.WHITE);
                     name.setText(snapshot2.child("name").getValue().toString());
@@ -68,9 +71,7 @@ public class FollowFragment extends Fragment {
                     CircleImageView img = new CircleImageView(getContext());
                     Button btn = new Button(getContext());
 
-                    if(Integer.parseInt(snapshot2.child("id").getValue().toString()) == localUser.getId()){
-                        continue;
-                    }
+
 
                     if(snapshot2.child("urlPhoto").getValue().toString().isEmpty()){
                         Glide.with(getActivity()).load("").placeholder(R.drawable.ic_baseline_account_circle_24).into(img);
