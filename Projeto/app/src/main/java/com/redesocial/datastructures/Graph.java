@@ -348,6 +348,17 @@ public class Graph
     {
         return getVertex( index ).getTotalNeighbors();
     }
+
+    public void setVertexX( int index, int x )
+    {
+        getVertex( index ).setX( x );
+    }
+
+    public void setVertexY( int index, int y )
+    {
+        getVertex( index ).setX( y );
+    }
+
 }
 
 class Vertex
