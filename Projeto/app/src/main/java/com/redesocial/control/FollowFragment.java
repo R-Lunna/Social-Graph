@@ -28,6 +28,8 @@ import com.redesocial.database.LocalUser;
 
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FollowFragment extends Fragment {
@@ -110,6 +112,16 @@ public class FollowFragment extends Fragment {
 
                         }
                     });
+
+                    TextView number = new TextView(getContext());
+
+                    int countUsers = 0;
+                    for( DataSnapshot dataSnapshot : snapshot2.child("Edges").getChildren() )
+                        countUsers++;
+
+                    number.setText( String.format(Locale.getDefault(), "Número de seguidores: %d", countUsers));
+                    number.setPadding(400, 250, 0,0 );
+                    relativeLayout.addView(number);
 
                     relativeLayout.addView(img, 250, 250);
                     relativeLayout.addView(name);
