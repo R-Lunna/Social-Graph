@@ -2,6 +2,7 @@ package com.redesocial.control;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.icu.number.NumberRangeFormatter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -120,6 +121,8 @@ public class FollowFragment extends Fragment {
                         countUsers++;
 
                     number.setText( String.format(Locale.getDefault(), "Número de seguidores: %d", countUsers));
+                    number.setTextColor( Color.WHITE );
+                    number.setTextSize( 15f );
                     number.setPadding(400, 250, 0,0 );
                     relativeLayout.addView(number);
 
