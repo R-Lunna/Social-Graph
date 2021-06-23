@@ -131,7 +131,6 @@ public class FollowFragment extends Fragment {
                     relativeLayout.addView(btn);
                     relativeLayout.setPadding(0, 50, 0, 50);
                     relativeLayout.setBackground(getResources().getDrawable(R.drawable.borda));
-
                     linearLayout.addView(relativeLayout);
                 }
             }

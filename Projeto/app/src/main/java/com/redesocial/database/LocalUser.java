@@ -4,7 +4,6 @@ public class LocalUser {
 
     private static int id;
 
-
     public LocalUser(){
 
     }
