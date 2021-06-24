@@ -4,44 +4,47 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.redesocial.R;
 import com.redesocial.control.FollowFragment;
 import com.redesocial.control.GraphFragment;
-import com.redesocial.control.SettingFragment;
+import com.redesocial.control.ProfileFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
     // Variável do tipo BottomNavigationView que será usada para referênciar a barra de navegação do menu e por setar o controle dela
     BottomNavigationView bottomNavigationView;
 
+
+
     // Controle da barra de navegação, é instânciado um objeto que funcionara como um identificador de qual botão o usuário clicou na barra de menu
-    BottomNavigationView.OnNavigationItemSelectedListener btno = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    BottomNavigationView.OnNavigationItemSelectedListener btno = item -> {
 
-            // Switch case responsável por identificar qual o botão selecionado
-            // -- Configurações, grafo ou seguir
-            // -- O método recebe como parâmetro uma variável do tipo MenuItem,
-            switch (item.getItemId()) {
-                // Caso seja a aba de configurações, execute um openView passando o fragmento de tela "configurações"
+        // Switch case responsável por identificar qual o botão selecionado
+        // -- Configurações, grafo ou seguir
+        // -- O método recebe como parâmetro uma variável do tipo MenuItem,
 
-                case R.id.setting:
-                    openView(new SettingFragment());
-                    break;
-                case R.id.graph:
-                    openView(new GraphFragment());
-                    break;
-                case R.id.follow:
-                    openView(new FollowFragment());
-                    break;
+        switch (item.getItemId()) {
+            // Caso seja a aba de configurações, execute um openView passando o fragmento de tela "configurações"
 
-            }
-            return false;
+            case R.id.setting:
+                openView(new ProfileFragment());
+                break;
+            case R.id.graph:
+                openView(new GraphFragment());
+                break;
+            case R.id.follow:
+                openView(new FollowFragment());
+                break;
+
         }
+        return false;
     };
 
     // Método que recebe o fragmento de tela e seta na tela principal
@@ -59,7 +62,11 @@ public class HomeActivity extends AppCompatActivity {
         // Referencia a variável com o menu de navegação através do ID
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.nav_view);
 
+
+        bottomNavigationView.setSelectedItemId( R.id.follow );
+
         // Seta o objeto/fragmento de tela
         bottomNavigationView.setOnNavigationItemSelectedListener(btno);
+
     }
 }
