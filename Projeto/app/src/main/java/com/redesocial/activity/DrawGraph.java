@@ -36,6 +36,7 @@ public class DrawGraph extends View {
     private int relativeDistance = 0;
     private int radius = 100;
 
+
     public DrawGraph(Context context) {
         this( context, null);
     }
@@ -45,7 +46,6 @@ public class DrawGraph extends View {
         super( context, attributeSet );
 
         configPaint();
-        configZoom();
     }
 
     /* Configura o grafo */
@@ -117,8 +117,6 @@ public class DrawGraph extends View {
             nodePositionX = graph.getVertexX( indexVertex );
             nodePositionY = graph.getVertexY( indexVertex );
 
-
-
             /* Percorre as arestas do vértice */
             for( int indexEdge = 0; indexEdge < graph.getVertexLength( indexVertex ); indexEdge++ )
             {
@@ -154,11 +152,8 @@ public class DrawGraph extends View {
 
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
-        scaleGestureDetector.onTouchEvent( event );
 
         switch ( event.getAction() )
         {
@@ -171,16 +166,16 @@ public class DrawGraph extends View {
                     if ( eventX > xTouch )
                         cameraPositionX += INCREMENT_CAMERA_POSITION;
                     else
-                    if(eventX < xTouch)
-                        cameraPositionX -= INCREMENT_CAMERA_POSITION;
+                        if(eventX < xTouch)
+                            cameraPositionX -= INCREMENT_CAMERA_POSITION;
                 }
                 else
                 {
                     if (eventY > yTouch )
                         cameraPositionY += INCREMENT_CAMERA_POSITION;
                     else
-                    if((eventY < yTouch ))
-                        cameraPositionY -= INCREMENT_CAMERA_POSITION;
+                        if((eventY < yTouch ))
+                            cameraPositionY -= INCREMENT_CAMERA_POSITION;
                 }
 
                 xTouch = event.getX();
@@ -195,45 +190,6 @@ public class DrawGraph extends View {
         }
 
         return super.onTouchEvent(event);
-    }
-
-    public void configZoom()
-    {
-        scaleGestureDetector = new ScaleGestureDetector( getContext(), new ScaleGestureDetector.OnScaleGestureListener() {
-            @Override
-            public boolean onScale(ScaleGestureDetector detector) {
-
-
-                /*
-                if( detector.getScaleFactor() > 1 )
-                {
-                    radius += RADIUS_INCREMENT;
-                    //relativeDistance += RADIUS_INCREMENT;
-                }
-
-                else
-                if( radius > 10 )
-                {
-                    radius -= RADIUS_INCREMENT;
-                    relativeDistance -= RADIUS_INCREMENT;
-                }
-                */
-
-
-
-                return true;
-            }
-
-            @Override
-            public boolean onScaleBegin(ScaleGestureDetector detector) {
-                return true;
-            }
-
-            @Override
-            public void onScaleEnd(ScaleGestureDetector detector) {
-
-            }
-        });
     }
 
 }
