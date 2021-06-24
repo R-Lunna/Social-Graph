@@ -1,0 +1,309 @@
+[
+	{
+		"id" : "0",
+		"name" : "Ana Lívia",
+		"email" : "AnaLívia@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "27/09/1964",
+		"sex" : "Feminino",
+		"positionX" : "6887",
+		"positionY" : "4675",
+		"Edges" : [
+		]
+	},
+	{
+		"id" : "1",
+		"name" : "Bianca",
+		"email" : "Bianca@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "13/11/1985",
+		"sex" : "Feminino",
+		"positionX" : "-102",
+		"positionY" : "-7832",
+		"Edges" : [
+			"10", 
+			"7", 
+			"6", 
+			"9", 
+			"19"
+		]
+	},
+	{
+		"id" : "2",
+		"name" : "Enzo Gabriel",
+		"email" : "EnzoGabriel@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "04/08/1955",
+		"sex" : "Masculino",
+		"positionX" : "-1285",
+		"positionY" : "9605",
+		"Edges" : [
+			"16", 
+			"7", 
+			"3", 
+			"4"
+		]
+	},
+	{
+		"id" : "3",
+		"name" : "Ana Clara",
+		"email" : "AnaClara@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "31/05/1954",
+		"sex" : "Feminino",
+		"positionX" : "-9410",
+		"positionY" : "2091",
+		"Edges" : [
+			"17"
+		]
+	},
+	{
+		"id" : "4",
+		"name" : "João Vitor",
+		"email" : "JoãoVitor@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "12/08/1977",
+		"sex" : "Masculino",
+		"positionX" : "-3085",
+		"positionY" : "2839",
+		"Edges" : [
+			"7"
+		]
+	},
+	{
+		"id" : "5",
+		"name" : "Lucca",
+		"email" : "Lucca@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "30/09/1922",
+		"sex" : "Masculino",
+		"positionX" : "-8105",
+		"positionY" : "6036",
+		"Edges" : [
+			"1", 
+			"2", 
+			"16"
+		]
+	},
+	{
+		"id" : "6",
+		"name" : "Olivia",
+		"email" : "Olivia@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "07/02/1963",
+		"sex" : "Feminino",
+		"positionX" : "9613",
+		"positionY" : "-2479",
+		"Edges" : [
+			"15", 
+			"17"
+		]
+	},
+	{
+		"id" : "7",
+		"name" : "Pedro",
+		"email" : "Pedro@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "27/02/1959",
+		"sex" : "Masculino",
+		"positionX" : "1618",
+		"positionY" : "2427",
+		"Edges" : [
+		]
+	},
+	{
+		"id" : "8",
+		"name" : "Eloá",
+		"email" : "Eloá@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "25/07/1929",
+		"sex" : "Feminino",
+		"positionX" : "-973",
+		"positionY" : "641",
+		"Edges" : [
+			"16", 
+			"10", 
+			"5"
+		]
+	},
+	{
+		"id" : "9",
+		"name" : "João Lucas",
+		"email" : "JoãoLucas@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "27/07/1939",
+		"sex" : "Masculino",
+		"positionX" : "6594",
+		"positionY" : "-8016",
+		"Edges" : [
+			"3", 
+			"19", 
+			"1", 
+			"5", 
+			"15"
+		]
+	},
+	{
+		"id" : "10",
+		"name" : "Levi",
+		"email" : "Levi@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "05/04/1931",
+		"sex" : "Masculino",
+		"positionX" : "-6532",
+		"positionY" : "5914",
+		"Edges" : [
+			"6", 
+			"5", 
+			"8", 
+			"11", 
+			"12"
+		]
+	},
+	{
+		"id" : "11",
+		"name" : "João Gabriel",
+		"email" : "JoãoGabriel@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "07/08/1930",
+		"sex" : "Masculino",
+		"positionX" : "-7276",
+		"positionY" : "9901",
+		"Edges" : [
+			"14", 
+			"10", 
+			"12"
+		]
+	},
+	{
+		"id" : "12",
+		"name" : "Eduarda",
+		"email" : "Eduarda@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "23/03/2003",
+		"sex" : "Feminino",
+		"positionX" : "4469",
+		"positionY" : "1642",
+		"Edges" : [
+			"11", 
+			"16", 
+			"13"
+		]
+	},
+	{
+		"id" : "13",
+		"name" : "Pedro",
+		"email" : "Pedro@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "10/01/2005",
+		"sex" : "Masculino",
+		"positionX" : "8503",
+		"positionY" : "6040",
+		"Edges" : [
+		]
+	},
+	{
+		"id" : "14",
+		"name" : "Nicole",
+		"email" : "Nicole@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "23/08/1945",
+		"sex" : "Feminino",
+		"positionX" : "5137",
+		"positionY" : "-7081",
+		"Edges" : [
+		]
+	},
+	{
+		"id" : "15",
+		"name" : "Elisa",
+		"email" : "Elisa@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "09/12/1929",
+		"sex" : "Feminino",
+		"positionX" : "-796",
+		"positionY" : "2893",
+		"Edges" : [
+			"13", 
+			"10", 
+			"7"
+		]
+	},
+	{
+		"id" : "16",
+		"name" : "Eduarda",
+		"email" : "Eduarda@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "21/06/1939",
+		"sex" : "Feminino",
+		"positionX" : "-3307",
+		"positionY" : "9738",
+		"Edges" : [
+			"17", 
+			"9", 
+			"7"
+		]
+	},
+	{
+		"id" : "17",
+		"name" : "Rafael",
+		"email" : "Rafael@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "24/11/1985",
+		"sex" : "Masculino",
+		"positionX" : "-3123",
+		"positionY" : "-2039",
+		"Edges" : [
+		]
+	},
+	{
+		"id" : "18",
+		"name" : "Henry",
+		"email" : "Henry@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "10/08/1923",
+		"sex" : "Masculino",
+		"positionX" : "2372",
+		"positionY" : "-177",
+		"Edges" : [
+			"14", 
+			"13", 
+			"3", 
+			"12"
+		]
+	},
+	{
+		"id" : "19",
+		"name" : "Leonardo",
+		"email" : "Leonardo@gmail.com",
+		"password" : "qualquersenha",
+		"urlPhoto" : "",
+		"birthday" : "01/08/1981",
+		"sex" : "Masculino",
+		"positionX" : "-6337",
+		"positionY" : "-6810",
+		"Edges" : [
+			"11", 
+			"10"
+		]
+	}
+]
