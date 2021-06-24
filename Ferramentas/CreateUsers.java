@@ -127,8 +127,10 @@ public class CreateUsers
 
 			formatter.format("\t\t\"Edges\" : [%n");
 
-			int countEdges = random.nextInt( (int)(size * 0.15) );
+			int countEdges = random.nextInt( (int)(size * 0.30) );
 			//int countEdges = random.nextInt( size );
+
+			ArrayList<Integer> values = new ArrayList<>();
 
 			for( int count2 = 0; count2 < countEdges; count2++ )
 			{
@@ -137,8 +139,11 @@ public class CreateUsers
 				while( sentinel )
 				{
 					edge = random.nextInt( size );
-					if( edge != count )
+					if( edge != count && !values.contains( edge ) )
+					{
 						sentinel = false;
+						values.add( edge );
+					}
 					
 				}
 
