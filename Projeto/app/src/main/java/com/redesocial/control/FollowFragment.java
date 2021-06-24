@@ -54,18 +54,18 @@ public class FollowFragment extends Fragment {
     private void montarLinha() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User");
 
-
-
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint({"UseCompatLoadingForDrawables", "ResourceType"})
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                for (DataSnapshot snapshot2 : snapshot.getChildren()) {
-                    if(Integer.parseInt(snapshot2.child("id").getValue().toString()) == LocalUser.getId()){
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                int countID = 0;
+                for(DataSnapshot snapshot2 : snapshot.getChildren())
+                {
+                    int id = Integer.parseInt(snapshot2.child("id").getValue().toString());
+                    if( id == LocalUser.getId())
                         continue;
-                    }
+
                     TextView name = new TextView(getContext());
                     name.setTextColor(Color.WHITE);
                     name.setText(snapshot2.child("name").getValue().toString());
@@ -74,44 +74,66 @@ public class FollowFragment extends Fragment {
                     CircleImageView img = new CircleImageView(getContext());
                     Button btn = new Button(getContext());
 
-
-
-                    if(snapshot2.child("urlPhoto").getValue().toString().isEmpty()){
+                    if(snapshot2.child("urlPhoto").getValue().toString().isEmpty())
                         Glide.with(getActivity()).load("").placeholder(R.drawable.ic_baseline_account_circle_24).into(img);
-                    } else{
+                    else
                         Glide.with(getActivity()).load(snapshot2.child("urlPhoto").getValue().toString()).into(img);
-
-                        Log.d("msg", snapshot2.child("urlPhoto").getValue().toString() );
-                    }
 
                     name.setPadding(400, 0, 0, 0);
                     name.setTextSize(20);
 
                     img.setX(20);
                     img.setBorderWidth(3);
-
-                    btn.setText("Seguir");
-                    btn.setTextColor(Color.WHITE);
                     btn.setX(400);
                     btn.setY(100);
                     btn.setWidth(100);
-                    btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
+                    btn.setTextColor(Color.WHITE);
 
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                    btn.setId( id );
 
-                            if (btn.getText().equals("Seguir")) {
-                                btn.setBackgroundColor(getResources().getColor(R.color.teal_700));
-                                btn.setText("Parar de seguir");
-                                btn.setTextColor(Color.WHITE);
-                            } else {
-                                btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
-                                btn.setText("Seguir");
-                                btn.setTextColor(Color.WHITE);
-                            }
+                    if( !LocalUser.getEges().contains( btn.getId() ))
+                    {
+                        btn.setText("Seguir");
+                        btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
+                    }
+                    else
+                    {
+                        btn.setBackgroundColor(getResources().getColor(R.color.teal_700));
+                        btn.setText("Parar de seguir");
+                    }
+
+                    btn.setOnClickListener(v -> {
+
+                        if (btn.getText().equals("Seguir"))
+                        {
+                            btn.setBackgroundColor(getResources().getColor(R.color.teal_700));
+                            btn.setText("Parar de seguir");
+                            btn.setTextColor(Color.WHITE);
+
+                            LocalUser.getEges().add( btn.getId() );
+
+                            //save here
+                            DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("User/" + LocalUser.getId());
+                            databaseReference1.child("Edges").setValue( LocalUser.getEges() );
 
                         }
+                        else
+                        {
+                            btn.setBackgroundColor(getResources().getColor(R.color.SecondayVariant));
+
+                            btn.setText("Seguir");
+
+                            btn.setTextColor(Color.WHITE);
+
+                            LocalUser.getEges().remove( Integer.valueOf( btn.getId() ) );
+
+                            // save here
+                            DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("User/" + LocalUser.getId());
+                            databaseReference1.child("Edges").setValue( LocalUser.getEges() );
+                        }
+
+
+
                     });
 
                     TextView number = new TextView(getContext());
