@@ -23,15 +23,23 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.redesocial.R;
+import com.redesocial.database.LocalUser;
 import com.redesocial.database.User;
 
+import java.lang.reflect.Array;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.UUID;
@@ -68,6 +76,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar);
+
         checkObject();
         choosePicture();
         setRegister();
@@ -84,10 +93,13 @@ public class Register extends AppCompatActivity {
         datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> birthday.setText( String.format(Locale.getDefault(),"%02d/%02d/%4d", dayOfMonth, month, year ) ), thisYear, thisMonth, thisDay );
 
         birthday.setOnClickListener(v -> datePickerDialog.show());
+
         birthday.setOnFocusChangeListener( ( view, hasFocus) -> datePickerDialog.show());
+
     }
 
-    private void checkObject() {
+    private void checkObject()
+    {
         name = (EditText) findViewById(R.id.name);
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
@@ -201,7 +213,6 @@ public class Register extends AppCompatActivity {
             sentinelRegister = false;
         }
 
-
         if( sentinelRegister )
             saveUser();
 
@@ -217,6 +228,7 @@ public class Register extends AppCompatActivity {
 
     private void setRegister() {
         register.setOnClickListener(v -> checkInfo(showAlert()));
+
     }
 
     private AlertDialog showAlert() {
@@ -245,20 +257,95 @@ public class Register extends AppCompatActivity {
     private void saveUser() {
         user.setName(name.getText().toString());
         user.setEmail(email.getText().toString());
-        user.setBirthday(birthday.getText().toString());
         user.setPassword(password.getText().toString());
-        if (male.isChecked()) user.setSex(male.getText().toString());
-        else user.setSex(female.getText().toString());
-        if(user.getUrlPhoto()==null) user.setUrlPhoto("");
+
+        String[] date = birthday.getText().toString().split("/");
+        user.setBirthday( date[0] + "/" + (Integer.parseInt(date[1]) + 1) + "/" + date[2]);
+        user.setBirthday( String.format(Locale.getDefault(), "%s/%02d/%s", date[0], (Integer.parseInt(date[1]) + 1), date[2]));
+
+
+
+
+        if (male.isChecked())
+            user.setSex(male.getText().toString());
+        else
+            user.setSex(female.getText().toString());
+
+        if(user.getUrlPhoto() == null)
+            user.setUrlPhoto("");
+
+        ArrayList<Integer> positionsX = new ArrayList<>();
+        ArrayList<Integer> positionsY = new ArrayList<>();
 
         // Referencia a tabela usuário no objeto databaseUser
         // Como se tivesse fazendo um insert no banco
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("User");
 
-        // child cria um id pra o objeto, é como a sequence no banco de dados só que é um id de caracteres
-        databaseUser.child(databaseUser.push().getKey()).setValue(user).addOnSuccessListener(aVoid -> {
-            startActivity(new Intent(Register.this, HomeActivity.class));
-            finish();
+        databaseUser.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                for(DataSnapshot snapshot2 : snapshot.getChildren())
+                {
+                    int childID = Integer.parseInt(snapshot2.child("id").getValue().toString());
+
+                    if( LocalUser.getLastID() < childID )
+                        LocalUser.setLastID( childID );
+
+                    int positionX = Integer.parseInt(snapshot2.child("positionX").getValue().toString());
+                    int positionY = Integer.parseInt(snapshot2.child("positionY").getValue().toString());
+
+                    positionsX.add( positionX );
+                    positionsY.add( positionY );
+
+                }
+
+                /* Gera nova posição */
+                int x = 0;
+                int y = 0;
+                boolean sentinel = true;
+                final int MARGIN = 100;
+                final int RADIUS = 100;
+                SecureRandom random = new SecureRandom();
+
+                while( sentinel )
+                {
+                    sentinel = false;
+
+                    x = random.nextInt(10000) * ((random.nextInt(2) == 0)?-1:1);
+                    y = random.nextInt(10000) * ((random.nextInt(2) == 0)?-1:1);
+
+                    for( int count = 0; count < positionsX.size(); count++ )
+                    {
+                        /* Verifica se há colisão */
+                        if( Math.sqrt( Math.pow( (positionsX.get( count ) - x), 2) + Math.pow( positionsY.get( count ) - y, 2)  ) < MARGIN + RADIUS + RADIUS )
+                            sentinel = true;
+                    }
+                }
+
+                user.setPositionX( x );
+                user.setPositionY( y );
+
+                user.setId( LocalUser.getLastID() + 1);
+                LocalUser.setLastID( LocalUser.getLastID() + 1);
+
+                DatabaseReference usersRef = databaseUser.child(String.valueOf( LocalUser.getLastID()));
+
+                LocalUser.setUser( user );
+
+                usersRef.setValue( user );
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
+
+        startActivity(new Intent(Register.this, HomeActivity.class));
+        finish();
+
     }
 }
