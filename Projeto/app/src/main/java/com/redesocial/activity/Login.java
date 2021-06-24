@@ -21,6 +21,10 @@ import com.redesocial.R;
 import com.redesocial.database.LocalUser;
 import com.redesocial.database.User;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Login extends AppCompatActivity {
     private Button login;
     private Button register;
@@ -51,13 +55,18 @@ public class Login extends AppCompatActivity {
     }
 
 
-    private void checkLogin(AlertDialog alertDialog) {
+    private void checkLogin(AlertDialog alertDialog)
+    {
         email = (EditText) findViewById(R.id.emailLogin);
         password = (EditText) findViewById(R.id.passwordLogin);
 
-        if (email.getText().toString().equals("")) error(email, "email inválido", alertDialog);
-        else if (password.getText().toString().equals("")) error(password, "senha inválida", alertDialog);
-        else consultaBancoLogin(email.getText().toString(), password.getText().toString());
+        if (email.getText().toString().equals(""))
+            error(email, "email inválido", alertDialog);
+        else
+            if (password.getText().toString().equals(""))
+                error(password, "senha inválida", alertDialog);
+            else
+                consultaBancoLogin(email.getText().toString(), password.getText().toString());
     }
 
     private void error(EditText text, String textError, AlertDialog alertDialog) {
@@ -90,23 +99,68 @@ public class Login extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void consultaBancoLogin(String email, String password) {
+    private void consultaBancoLogin(String email, String password)
+    {
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("User");
+
         // faz um select no banco usando o objeto de referência
-        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseUser.addListenerForSingleValueEvent(new ValueEventListener()
+        {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean exist = false;
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                boolean userExists = false;
+
                 // Percorre todos os ID, fazendo a consulta estilo lista
-                for (DataSnapshot snapshot2 : snapshot.getChildren()) {
-                    if (snapshot2.child("email").getValue().toString().equalsIgnoreCase(email) && snapshot2.child("password").getValue().toString().equals(password)) {
-                        exist = true;
-                        LocalUser localUser = new LocalUser(Integer.parseInt(snapshot2.child("id").getValue().toString()));
-                        startActivity(new Intent(Login.this, HomeActivity.class));
+                for (DataSnapshot snapshot2 : snapshot.getChildren())
+                {
+                    String emailSnapshot = snapshot2.child("email").getValue().toString();
+                    String passwordSnapshot = snapshot2.child("password").getValue().toString();
+
+                    if ( emailSnapshot.equalsIgnoreCase( email ) && passwordSnapshot.equals(password) )
+                    {
+                        userExists = true;
+
+                        int id = Integer.parseInt(snapshot2.child("id").getValue().toString());
+                        String name = snapshot2.child("name").getValue().toString();
+                        String email = snapshot2.child("email").getValue().toString();
+                        String password = snapshot2.child("password").getValue().toString();
+                        String urlPhoto = snapshot2.child("urlPhoto").getValue().toString();
+                        String birthday = snapshot2.child("birthday").getValue().toString();
+                        String sex = snapshot2.child("sex").getValue().toString();
+                        
+                        LocalUser.setId( id );
+                        LocalUser.setName( name );
+                        LocalUser.setEmail( email );
+                        LocalUser.setPassword( password );
+                        LocalUser.setUrlPhoto( urlPhoto );
+                        LocalUser.setBirthday( birthday );
+                        LocalUser.setSex( sex );
+
+                        ArrayList<Integer> edgesAux = new ArrayList<>();
+
+                        for( DataSnapshot dataSnapshot1 : snapshot2.child("Edges").getChildren() )
+                        {
+                            String s = dataSnapshot1.getValue().toString();
+                            edgesAux.add( (Integer.parseInt( s ) ) );
+                        }
+
+                        LocalUser.setEdges( edgesAux );
+
                     }
+
+                    int childID = Integer.parseInt(snapshot2.child("id").getValue().toString());
+
+                    if( LocalUser.getLastID() < childID )
+                        LocalUser.setLastID( childID );
                 }
 
-                if (!exist) userNotFound();
+                /* Se o usuário foi encontrado no banco */
+                if( userExists )
+                    startActivity(new Intent(Login.this, HomeActivity.class));
+                else
+                    userNotFound();
+
             }
 
             @Override
@@ -127,15 +181,12 @@ public class Login extends AppCompatActivity {
 
     // Chama a tela de registrar ao clicar no botão "cadastrar" usando o método setOnClickListener
     private void setRegister() {
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Instancia um objeto intent passando a tela atual e a nova tela
-                startActivity(new Intent(Login.this, Register.class));
+        register.setOnClickListener(v -> {
+            // Instancia um objeto intent passando a tela atual e a nova tela
+            startActivity(new Intent(Login.this, Register.class));
 
-                // fecha a tela atual
+            // fecha a tela atual
 
-            }
         });
     }
 }
