@@ -20,6 +20,8 @@ import com.redesocial.R;
 import com.redesocial.activity.DrawGraph;
 import com.redesocial.datastructures.Graph;
 import com.redesocial.database.User;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,7 +63,7 @@ public class GraphFragment extends Fragment{
                  String sex;
                  int positionX;
                  int positionY;
-                 int[] edges;
+                 ArrayList<Integer> edges = new ArrayList<>();
 
                 for( DataSnapshot dataSnapshot : snapshot.getChildren() )
                 {
@@ -80,15 +82,12 @@ public class GraphFragment extends Fragment{
                     for( DataSnapshot dataSnapshot1 : dataSnapshot.child("Edges").getChildren() )
                     {
                         String s = dataSnapshot1.getValue().toString();
-                        Log.println(Log.INFO, "Teste de Aresta: ", s);
-
                         edgesAux.add( (Integer.parseInt( s ) ) );
                     }
 
-                    edges = new int[ edgesAux.size() ];
                     for( int count = 0; count < edgesAux.size(); count++ )
                     {
-                        edges[ count ] = Integer.parseInt( edgesAux.get( count ).toString());
+                        edges.add(Integer.parseInt( edgesAux.get( count ).toString()));
                     }
 
                     graph.importVertex( new User( id, name, email, password, urlPhoto, birthday, sex, positionX, positionY, edges ) );
@@ -105,12 +104,12 @@ public class GraphFragment extends Fragment{
             }
         });
 
-
-
         drawGraph.setGraph( graph );
 
         super.onStart();
     }
+
+
 
 
 }

@@ -3,6 +3,7 @@ package com.redesocial.datastructures;
 import com.redesocial.database.User;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,7 +103,7 @@ public class Graph
     {
         for( Vertex vertex : vertices )
         {
-            int[] edges = vertex.getData().getEdges();
+            ArrayList<Integer> edges = vertex.getData().getEdges();
             for( int edge :  edges )
             {
                 vertex.addEdge( getVertexByID( edge ) );

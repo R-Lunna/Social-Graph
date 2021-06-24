@@ -1,6 +1,8 @@
 package com.redesocial.database;
 
 
+import java.util.ArrayList;
+
 public class User {
 
     private int id;
@@ -12,7 +14,7 @@ public class User {
     private String sex;
     private int positionX;
     private int positionY;
-    private int[] edges;
+    private ArrayList<Integer> edges = new ArrayList<>();
 
     public User()
     {
@@ -20,7 +22,7 @@ public class User {
     }
 
 
-    public User( int id, String name, String email, String password, String urlPhoto, String birthday, String sex, int positionX, int positionY, int[] edges )
+    public User( int id, String name, String email, String password, String urlPhoto, String birthday, String sex, int positionX, int positionY, ArrayList<Integer> edges )
     throws IllegalArgumentException
     {
         if( id < 0 )
@@ -115,11 +117,11 @@ public class User {
         this.positionY = positionY;
     }
 
-    public int[] getEdges() {
+    public ArrayList<Integer> getEdges() {
         return edges;
     }
 
-    public void setEdges(int[] edges) {
+    public void setEdges(ArrayList<Integer> edges) {
         this.edges = edges;
     }
 }
